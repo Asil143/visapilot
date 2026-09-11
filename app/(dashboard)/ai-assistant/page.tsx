@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -56,63 +57,84 @@ const QUESTIONS_BY_VISA: Record<string, string[]> = {
   ],
 };
 
-// ── Markdown renderer ─────────────────────────────────────────────────────────
-function renderMarkdown(text: string): string {
+// ── Markdown-lite renderer ────────────────────────────────────────────────────
+function renderInline(text: string): ReactNode[] {
+  return text.split(/(`[^`]+`|\*\*\*[^*]+\*\*\*|\*\*[^*]+\*\*|\*[^*]+\*)/g).filter(Boolean).map((part, index) => {
+    const code = part.match(/^`([^`]+)`$/);
+    if (code) return <code key={index} className="inline-code">{code[1]}</code>;
+
+    const strongEm = part.match(/^\*\*\*(.+)\*\*\*$/);
+    if (strongEm) return <strong key={index}><em>{strongEm[1]}</em></strong>;
+
+    const strong = part.match(/^\*\*(.+)\*\*$/);
+    if (strong) return <strong key={index}>{strong[1]}</strong>;
+
+    const em = part.match(/^\*(.+)\*$/);
+    if (em) return <em key={index}>{em[1]}</em>;
+
+    return part;
+  });
+}
+
+function renderMarkdown(text: string): ReactNode[] {
   const lines = text.split("\n");
-  const output: string[] = [];
-  let inList = false;
+  const output: ReactNode[] = [];
+  let listItems: ReactNode[][] = [];
   let listType: "ul" | "ol" | null = null;
   let inCodeBlock = false;
   let codeLines: string[] = [];
 
   const flushList = () => {
-    if (inList) {
-      output.push(listType === "ol" ? "</ol>" : "</ul>");
-      inList = false;
+    if (listType && listItems.length > 0) {
+      const items = listItems;
+      const key = `list-${output.length}`;
+      output.push(listType === "ol"
+        ? <ol key={key} className="md-ol">{items.map((item, index) => <li key={index}>{item}</li>)}</ol>
+        : <ul key={key} className="md-ul">{items.map((item, index) => <li key={index}>{item}</li>)}</ul>);
       listType = null;
+      listItems = [];
     }
   };
 
-  const inlineFormat = (s: string) =>
-    s
-      .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-      .replace(/\*\*\*(.+?)\*\*\*/g, "<strong><em>$1</em></strong>")
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.+?)\*/g, "<em>$1</em>");
-
   for (const line of lines) {
     if (line.startsWith("```")) {
-      if (!inCodeBlock) { flushList(); inCodeBlock = true; codeLines = []; }
-      else { output.push(`<pre class="code-block"><code>${codeLines.map(escHtml).join("\n")}</code></pre>`); inCodeBlock = false; codeLines = []; }
+      if (!inCodeBlock) {
+        flushList();
+        inCodeBlock = true;
+        codeLines = [];
+      } else {
+        output.push(<pre key={`code-${output.length}`} className="code-block"><code>{codeLines.join("\n")}</code></pre>);
+        inCodeBlock = false;
+        codeLines = [];
+      }
       continue;
     }
     if (inCodeBlock) { codeLines.push(line); continue; }
-    if (line.startsWith("### ")) { flushList(); output.push(`<h3 class="md-h3">${inlineFormat(line.slice(4))}</h3>`); continue; }
-    if (line.startsWith("## ")) { flushList(); output.push(`<h2 class="md-h2">${inlineFormat(line.slice(3))}</h2>`); continue; }
-    if (line.startsWith("# ")) { flushList(); output.push(`<h1 class="md-h1">${inlineFormat(line.slice(2))}</h1>`); continue; }
-    if (/^---+$/.test(line.trim())) { flushList(); output.push('<hr class="md-hr" />'); continue; }
+    if (line.startsWith("### ")) { flushList(); output.push(<h3 key={`h3-${output.length}`} className="md-h3">{renderInline(line.slice(4))}</h3>); continue; }
+    if (line.startsWith("## ")) { flushList(); output.push(<h2 key={`h2-${output.length}`} className="md-h2">{renderInline(line.slice(3))}</h2>); continue; }
+    if (line.startsWith("# ")) { flushList(); output.push(<h1 key={`h1-${output.length}`} className="md-h1">{renderInline(line.slice(2))}</h1>); continue; }
+    if (/^---+$/.test(line.trim())) { flushList(); output.push(<hr key={`hr-${output.length}`} className="md-hr" />); continue; }
     const olMatch = line.match(/^(\d+)\.\s+(.+)/);
     if (olMatch) {
-      if (!inList || listType !== "ol") { flushList(); output.push('<ol class="md-ol">'); inList = true; listType = "ol"; }
-      output.push(`<li>${inlineFormat(olMatch[2])}</li>`);
+      if (listType !== "ol") { flushList(); listType = "ol"; }
+      listItems.push(renderInline(olMatch[2]));
       continue;
     }
     const ulMatch = line.match(/^[-*•]\s+(.+)/);
     if (ulMatch) {
-      if (!inList || listType !== "ul") { flushList(); output.push('<ul class="md-ul">'); inList = true; listType = "ul"; }
-      output.push(`<li>${inlineFormat(ulMatch[1])}</li>`);
+      if (listType !== "ul") { flushList(); listType = "ul"; }
+      listItems.push(renderInline(ulMatch[1]));
       continue;
     }
-    if (line.trim() === "") { flushList(); output.push("<br/>"); continue; }
+    if (line.trim() === "") { flushList(); output.push(<br key={`br-${output.length}`} />); continue; }
     flushList();
-    output.push(`<p class="md-p">${inlineFormat(line)}</p>`);
+    output.push(<p key={`p-${output.length}`} className="md-p">{renderInline(line)}</p>);
   }
   flushList();
-  return output.join("");
-}
-
-function escHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  if (inCodeBlock) {
+    output.push(<pre key={`code-${output.length}`} className="code-block"><code>{codeLines.join("\n")}</code></pre>);
+  }
+  return output;
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -427,7 +449,7 @@ export default function AIAssistantPage() {
                   }`}>
                     {msg.role === "assistant" ? (
                       msg.content ? (
-                        <div dangerouslySetInnerHTML={{ __html: renderMarkdown(msg.content) }} />
+                        <div>{renderMarkdown(msg.content)}</div>
                       ) : (
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <Loader2 className="h-3.5 w-3.5 animate-spin" />

@@ -1,24 +1,17 @@
-import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/server";
+import { isAdminUser } from "@/lib/auth/admin";
 
-const ADMIN_EMAIL = "kamepalliasil143@gmail.com";
-
-async function assertAdmin() {
-  const { userId } = await auth();
-  if (!userId) return false;
-  const supabase = createAdminClient();
-  const { data } = await supabase
-    .from("profiles")
-    .select("email")
-    .eq("clerk_id", userId)
-    .single();
-  return data?.email === ADMIN_EMAIL;
-}
+const updateSubmissionSchema = z.object({
+  id: z.string().uuid("Invalid submission id"),
+  status: z.string().trim().max(80).optional(),
+  admin_notes: z.string().max(5000).optional(),
+});
 
 // GET /api/admin/form-submissions — all submissions
 export async function GET() {
-  if (!(await assertAdmin())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!(await isAdminUser())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const supabase = createAdminClient();
   const { data, error } = await supabase
@@ -32,10 +25,13 @@ export async function GET() {
 
 // PATCH /api/admin/form-submissions — update status or admin_notes
 export async function PATCH(req: NextRequest) {
-  if (!(await assertAdmin())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!(await isAdminUser())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { id, status, admin_notes } = await req.json();
-  if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
+  const parsed = updateSubmissionSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid update" }, { status: 400 });
+  }
+  const { id, status, admin_notes } = parsed.data;
 
   const supabase = createAdminClient();
   const update: Record<string, string> = { updated_at: new Date().toISOString() };

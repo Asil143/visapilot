@@ -2,17 +2,33 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
+import { z } from "zod";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const adminEmail = process.env.ADMIN_EMAIL ?? "kamepalliasil143@gmail.com";
+
+const screenshotSchema = z.object({
+  filename: z.string().trim().min(1).max(160),
+  content: z.string().min(1).max(10_000_000),
+}).optional();
+
+const paymentSchema = z.object({
+  email: z.string().trim().email("Enter a valid email").max(254),
+  planId: z.string().trim().min(1).max(80),
+  planName: z.string().trim().min(1).max(120),
+  amount: z.coerce.number().positive().max(10000),
+  txNote: z.string().trim().max(500).optional(),
+  screenshot: screenshotSchema,
+});
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
-  const body = await req.json();
-  const { email, planId, planName, amount, txNote, screenshot } = body;
+  const parsed = paymentSchema.safeParse(await req.json());
 
-  if (!email || !planId || !planName || !amount) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid payment submission" }, { status: 400 });
   }
+  const { email, planId, planName, amount, txNote, screenshot } = parsed.data;
 
   const supabase = createAdminClient();
   let screenshotPath: string | null = null;
@@ -25,10 +41,11 @@ export async function POST(req: NextRequest) {
     try {
       const buffer = Buffer.from(screenshot.content, "base64");
       const ext = screenshot.filename.split(".").pop()?.toLowerCase() || "png";
+      const contentType = ext === "jpg" || ext === "jpeg" ? "image/jpeg" : ext === "webp" ? "image/webp" : "image/png";
       const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("payment-screenshots")
-        .upload(path, buffer, { contentType: `image/${ext}`, upsert: false });
+        .upload(path, buffer, { contentType, upsert: false });
       if (!uploadError) {
         screenshotPath = path;
         const { data } = await supabase.storage
@@ -45,7 +62,7 @@ export async function POST(req: NextRequest) {
   try {
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
-      to: "kamepalliasil143@gmail.com",
+      to: adminEmail,
       subject: `[StatusClock] New Payment — ${planName} ($${amount})`,
       text: [
         `New payment submission received!`,

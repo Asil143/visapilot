@@ -1,6 +1,14 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/server";
+
+const postSchema = z.object({
+  title: z.string().trim().min(5, "Title is too short").max(180, "Title is too long"),
+  body: z.string().trim().min(10, "Body is too short").max(10000, "Body is too long"),
+  category: z.string().trim().min(1, "Category is required").max(80, "Category is too long"),
+  tags: z.string().max(300, "Tags are too long").optional().default(""),
+});
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -33,12 +41,13 @@ export async function POST(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const user = await currentUser();
-  const { title, body, category, tags } = await req.json();
-
-  if (!title?.trim() || !body?.trim() || !category?.trim()) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  const parsed = postSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid post" }, { status: 400 });
   }
+
+  const user = await currentUser();
+  const { title, body, category, tags } = parsed.data;
 
   const name = user?.firstName && user?.lastName
     ? `${user.firstName} ${user.lastName}`
@@ -59,8 +68,8 @@ export async function POST(req: NextRequest) {
       author_initials: initials,
       author_visa: "F-1",
       category,
-      title: title.trim(),
-      body: body.trim(),
+      title,
+      body,
       tags: tagArray,
       upvotes: 0,
       replies: 0,

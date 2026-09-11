@@ -118,3 +118,18 @@ create table if not exists public.community_post_upvotes (
   created_at timestamptz not null default now(),
   primary key (post_id, clerk_id)
 );
+
+-- ─── 7. Community replies ────────────────────────────────────────────────────
+create table if not exists public.community_replies (
+  id               uuid primary key default uuid_generate_v4(),
+  post_id          uuid not null references public.community_posts(id) on delete cascade,
+  user_id          text not null,
+  author_name      text not null default 'Anonymous',
+  author_initials  text not null default '?',
+  body             text not null,
+  upvotes          integer not null default 0,
+  is_best_answer   boolean not null default false,
+  created_at       timestamptz not null default now()
+);
+create index if not exists idx_community_replies_post    on public.community_replies(post_id, created_at);
+create index if not exists idx_community_replies_user    on public.community_replies(user_id);

@@ -1,25 +1,18 @@
-import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/server";
+import { isAdminUser } from "@/lib/auth/admin";
 import { Resend } from "resend";
 
-const ADMIN_EMAIL = "kamepalliasil143@gmail.com";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-async function checkAdmin(): Promise<boolean> {
-  const { userId } = await auth();
-  if (!userId) return false;
-  try {
-    const client = await clerkClient();
-    const user = await client.users.getUser(userId);
-    return user.emailAddresses.some(e => e.emailAddress === ADMIN_EMAIL);
-  } catch {
-    return false;
-  }
-}
+const paymentActionSchema = z.object({
+  id: z.string().uuid("Invalid payment id"),
+  action: z.enum(["activate", "reject"]),
+});
 
 export async function GET() {
-  if (!(await checkAdmin())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!(await isAdminUser())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const supabase = createAdminClient();
   const { data, error } = await supabase
@@ -43,10 +36,13 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
-  if (!(await checkAdmin())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!(await isAdminUser())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { id, action } = await req.json();
-  if (!id || !action) return NextResponse.json({ error: "Missing id or action" }, { status: 400 });
+  const parsed = paymentActionSchema.safeParse(await req.json());
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid action" }, { status: 400 });
+  }
+  const { id, action } = parsed.data;
 
   const supabase = createAdminClient();
 

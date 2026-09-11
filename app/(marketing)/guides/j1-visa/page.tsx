@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { RichText } from "@/components/ui/rich-text";
 import { CheckCircle2, AlertTriangle, ArrowRight, Bot, ChevronRight, Info } from "lucide-react";
 import { J1_SECTIONS as SECTIONS, J1_FAQS as FAQS } from "@/config/guides";
 
@@ -41,13 +42,13 @@ export default function J1GuidePage() {
                   <AlertTriangle className="h-6 w-6 text-orange-600 shrink-0 mt-0.5" />
                   <div className="text-sm text-orange-900">
                     <p className="font-bold mb-2">Critical: Two-Year Home Residency Requirement</p>
-                    <div className="space-y-2">
-                      {section.body!.split("\n\n").map((para, j) => (
-                        <p key={j} className="leading-5"
-                          dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }}
-                        />
-                      ))}
-                    </div>
+                    <RichText
+                      text={section.body!}
+                      className="space-y-2"
+                      paragraphClassName="leading-5"
+                      headingClassName="font-bold text-orange-950"
+                      listClassName="list-disc list-inside space-y-1 leading-5"
+                    />
                   </div>
                 </div>
               )}
@@ -72,22 +73,13 @@ export default function J1GuidePage() {
               )}
 
               {section.body && !section.isAlert && (
-                <div className="space-y-3 text-sm text-muted-foreground leading-6">
-                  {section.body.split("\n\n").map((para, j) => {
-                    if (para.startsWith("**") && para.includes("**\n")) {
-                      const [header, ...rest] = para.split("\n");
-                      return (
-                        <div key={j}>
-                          <p className="font-bold text-foreground mb-1">{header.replace(/\*\*/g, "")}</p>
-                          <p dangerouslySetInnerHTML={{ __html: rest.join(" ").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }} />
-                        </div>
-                      );
-                    }
-                    return (
-                      <p key={j} dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, "<strong class='text-foreground'>$1</strong>") }} />
-                    );
-                  })}
-                </div>
+                <RichText
+                  text={section.body}
+                  className="space-y-3 text-sm"
+                  paragraphClassName="text-muted-foreground leading-6"
+                  headingClassName="font-bold text-foreground mb-1"
+                  listClassName="list-disc list-inside space-y-1.5 text-muted-foreground leading-6"
+                />
               )}
             </div>
           ))}

@@ -22,6 +22,12 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: voteError.message }, { status: 500 });
   }
 
+  const { error: incrementError } = await supabase.rpc("increment_upvotes", { post_id: id });
+
+  if (incrementError) {
+    return NextResponse.json({ error: incrementError.message }, { status: 500 });
+  }
+
   const { data: post, error: fetchErr } = await supabase
     .from("community_posts")
     .select("upvotes")
@@ -29,14 +35,5 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     .single();
 
   if (fetchErr || !post) return NextResponse.json({ error: "Post not found" }, { status: 404 });
-
-  const { data, error } = await supabase
-    .from("community_posts")
-    .update({ upvotes: post.upvotes + 1 })
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ upvotes: data.upvotes });
+  return NextResponse.json({ upvotes: post.upvotes });
 }

@@ -33,15 +33,15 @@ export function Navbar() {
   const isToolsActive = toolsLinks.some((t) => pathname.startsWith(t.href));
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
+        <Link href="/" className="flex items-center gap-2 font-semibold text-lg tracking-tight text-slate-950">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-slate-950 text-white">
             <Bot className="h-5 w-5" />
           </div>
           StatusClock
-          <Badge variant="info" className="text-[10px] px-1.5 py-0">BETA</Badge>
+          <Badge variant="secondary" className="text-[10px] px-1.5 py-0">BETA</Badge>
         </Link>
 
         {/* Desktop Nav */}
@@ -64,7 +64,7 @@ export function Navbar() {
 
             {toolsOpen && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-72">
-                <div className="bg-white border border-slate-200 rounded-xl shadow-lg shadow-slate-200/60 overflow-hidden">
+                <div className="bg-white border border-slate-200 rounded-lg shadow-xl shadow-slate-900/10 overflow-hidden">
                   <div className="p-1.5">
                     {toolsLinks.map((tool) => (
                       <Link
@@ -72,7 +72,7 @@ export function Navbar() {
                         href={tool.href}
                         className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition-colors group"
                       >
-                        <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-blue-100 transition-colors">
+                        <div className="h-8 w-8 rounded-md bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-colors">
                           <tool.icon className="h-4 w-4 text-blue-600" />
                         </div>
                         <div>

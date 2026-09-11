@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { RichText } from "@/components/ui/rich-text";
 import { ArrowLeft, Clock, Calendar, Share2, Bookmark, Bot, ArrowRight } from "lucide-react";
 
 const ARTICLES: Record<string, {
@@ -268,25 +269,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Article body */}
-        <div className="prose prose-sm max-w-none mb-8">
-          {article.body.split("\n\n").map((para, i) => {
-            if (para.startsWith("**") && para.endsWith("**")) {
-              return <h2 key={i} className="text-xl font-bold mt-8 mb-3">{para.replace(/\*\*/g, "")}</h2>;
-            }
-            if (para.startsWith("- ")) {
-              return (
-                <ul key={i} className="list-disc list-inside space-y-1.5 text-muted-foreground text-sm my-3">
-                  {para.split("\n").filter(l => l.startsWith("- ")).map((item, j) => (
-                    <li key={j}>{item.replace("- ", "")}</li>
-                  ))}
-                </ul>
-              );
-            }
-            return <p key={i} className="text-muted-foreground leading-7 mb-4"
-              dangerouslySetInnerHTML={{ __html: para.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") }}
-            />;
-          })}
-        </div>
+        <RichText
+          text={article.body}
+          className="prose prose-sm max-w-none mb-8 space-y-4"
+          paragraphClassName="text-muted-foreground leading-7"
+          headingClassName="text-xl font-bold mt-8 mb-3 text-foreground"
+          listClassName="list-disc list-inside space-y-1.5 text-muted-foreground text-sm my-3"
+        />
 
         {/* Actions */}
         <div className="flex gap-3 mb-10">

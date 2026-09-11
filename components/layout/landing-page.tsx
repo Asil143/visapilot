@@ -10,7 +10,9 @@ import { Footer } from "@/components/layout/footer";
 import { visaGuides } from "@/config/navigation";
 import {
   Bot, Calendar, ListChecks, ArrowRight, CheckCircle2,
-  AlertTriangle, Clock, Shield, Zap, FileText, TrendingUp,
+  Clock, Shield, Zap, FileText, TrendingUp,
+  GraduationCap, BriefcaseBusiness, Microscope, Building2, BadgeCheck,
+  type LucideIcon,
 } from "lucide-react";
 
 // ─── Typing hook ─────────────────────────────────────────────────────────────
@@ -140,7 +142,7 @@ function TiltCard() {
       style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 1000 }}
       className="relative w-full max-w-sm mx-auto select-none"
     >
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-200/80">
+      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/10">
         {/* Header */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -391,12 +393,12 @@ function BentoStats() {
 
 // ─── Stage selector ───────────────────────────────────────────────────────────
 type Stage = "f1" | "opt" | "stem" | "h1b" | "gc";
-const stages: { id: Stage; label: string; emoji: string }[] = [
-  { id: "f1", label: "F-1 Student", emoji: "🎓" },
-  { id: "opt", label: "OPT", emoji: "💼" },
-  { id: "stem", label: "STEM OPT", emoji: "🔬" },
-  { id: "h1b", label: "H-1B", emoji: "🏢" },
-  { id: "gc", label: "Green Card", emoji: "🌿" },
+const stages: { id: Stage; label: string; icon: LucideIcon }[] = [
+  { id: "f1", label: "F-1 Student", icon: GraduationCap },
+  { id: "opt", label: "OPT", icon: BriefcaseBusiness },
+  { id: "stem", label: "STEM OPT", icon: Microscope },
+  { id: "h1b", label: "H-1B", icon: Building2 },
+  { id: "gc", label: "Green Card", icon: BadgeCheck },
 ];
 const stageContent: Record<Stage, { headline: string; subtext: string; urgency: string; urgencyColor: string; accentBg: string; items: string[]; cta: string; href: string }> = {
   f1: {
@@ -465,27 +467,17 @@ export function LandingPage() {
       <Navbar />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white pt-20 pb-20">
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-40"
-          style={{
-            backgroundImage: "radial-gradient(circle, #e2e8f0 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-        {/* Soft color blobs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-100/50 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100/40 rounded-full blur-3xl pointer-events-none translate-y-1/2 -translate-x-1/4" />
+      <section className="relative overflow-hidden bg-white pt-20 pb-20">
+        <div className="surface-grid absolute inset-0 pointer-events-none opacity-60" />
 
         <div className="container mx-auto px-4 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[75vh]">
             {/* Left */}
             <div>
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 rounded-full px-4 py-1.5 mb-6">
-                  <AlertTriangle className="h-3.5 w-3.5 text-red-500" />
-                  <span className="text-sm text-red-700 font-medium">One missed deadline can cost you your F-1 status</span>
+                <div className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-1.5 mb-6 shadow-sm shadow-slate-900/5">
+                  <Shield className="h-3.5 w-3.5 text-blue-600" />
+                  <span className="text-sm text-slate-700 font-medium">Deadline tracking and document guidance for US immigration</span>
                 </div>
               </motion.div>
 
@@ -493,10 +485,10 @@ export function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-5xl sm:text-6xl font-black text-slate-900 leading-[1.05] tracking-tight mb-6"
+                className="text-5xl sm:text-6xl font-black text-slate-950 leading-[1.05] tracking-tight mb-6"
               >
                 Confused about{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                <span className="text-blue-700">
                   {typedText || " "}
                   <span className="animate-pulse text-blue-600">|</span>
                 </span>
@@ -506,7 +498,7 @@ export function LandingPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg text-slate-600 leading-relaxed mb-8 max-w-lg"
+                className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl"
               >
                 Step-by-step checklists, AI guidance, and deadline tracking —
                 built for international students navigating the US immigration system.
@@ -518,13 +510,13 @@ export function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-3 mb-6"
               >
-                <Button size="xl" asChild className="bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg shadow-blue-600/25">
+                <Button size="xl" asChild>
                   <Link href="/dashboard/tools/checklists">
                     Browse Checklists Free
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="xl" variant="outline" asChild className="border-slate-300 text-slate-700 hover:bg-slate-50">
+                <Button size="xl" variant="outline" asChild>
                   <Link href="/ai-assistant">Try AI Assistant</Link>
                 </Button>
               </motion.div>
@@ -566,32 +558,32 @@ export function LandingPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             <FadeUp delay={0.05}>
-              <div className="md:row-span-2 rounded-2xl border border-slate-200 bg-white shadow-sm min-h-[280px] flex flex-col overflow-hidden hover:shadow-md transition-shadow">
+              <div className="md:row-span-2 rounded-lg border border-slate-200 bg-white min-h-[280px] flex flex-col overflow-hidden hover:shadow-sm transition-shadow">
                 <BentoAI />
               </div>
             </FadeUp>
 
             <FadeUp delay={0.1}>
-              <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white shadow-sm min-h-[160px] hover:shadow-md transition-shadow">
+              <div className="md:col-span-2 rounded-lg border border-slate-200 bg-white min-h-[160px] hover:shadow-sm transition-shadow">
                 <BentoDeadlines />
               </div>
             </FadeUp>
 
             <FadeUp delay={0.15}>
-              <div className="rounded-2xl border border-slate-200 bg-white shadow-sm min-h-[160px] hover:shadow-md transition-shadow">
+              <div className="rounded-lg border border-slate-200 bg-white min-h-[160px] hover:shadow-sm transition-shadow">
                 <BentoStats />
               </div>
             </FadeUp>
 
             <FadeUp delay={0.2}>
-              <div className="rounded-2xl border border-slate-200 bg-white shadow-sm min-h-[160px] hover:shadow-md transition-shadow">
+              <div className="rounded-lg border border-slate-200 bg-white min-h-[160px] hover:shadow-sm transition-shadow">
                 <BentoOPT />
               </div>
             </FadeUp>
 
             <FadeUp delay={0.25}>
               <Link href="/dashboard/tools/checklists" className="block">
-                <div className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 min-h-[160px] p-5 flex flex-col justify-between group hover:border-blue-300 hover:shadow-md transition-all cursor-pointer">
+                <div className="rounded-lg border border-blue-200 bg-blue-50 min-h-[160px] p-5 flex flex-col justify-between group hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer">
                   <div>
                     <div className="h-8 w-8 rounded-xl bg-blue-100 flex items-center justify-center mb-3">
                       <ListChecks className="h-4 w-4 text-blue-600" />
@@ -622,20 +614,22 @@ export function LandingPage() {
 
           <FadeUp delay={0.1}>
             <div className="flex flex-wrap justify-center gap-3 mb-10">
-              {stages.map((stage) => (
+              {stages.map((stage) => {
+                const Icon = stage.icon;
+                return (
                 <button
                   key={stage.id}
                   onClick={() => setActiveStage(stage.id)}
-                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all border-2 ${
+                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-semibold transition-all border ${
                     activeStage === stage.id
-                      ? "bg-slate-900 text-white border-slate-900 shadow-md"
-                      : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-800"
+                      ? "bg-slate-950 text-white border-slate-950 shadow-sm"
+                      : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
                   }`}
                 >
-                  <span className="mr-1.5">{stage.emoji}</span>
+                  <Icon className="h-4 w-4" />
                   {stage.label}
                 </button>
-              ))}
+              )})}
             </div>
           </FadeUp>
 
@@ -648,7 +642,7 @@ export function LandingPage() {
               transition={{ duration: 0.28 }}
               className="max-w-4xl mx-auto"
             >
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3 leading-snug">{content.headline}</h3>
@@ -670,7 +664,7 @@ export function LandingPage() {
                         initial={{ opacity: 0, x: 12 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.07 }}
-                        className="flex items-start gap-3 bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm"
+                        className="flex items-start gap-3 bg-white rounded-md p-3.5 border border-slate-200"
                       >
                         <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />
                         <span className="text-sm text-slate-700">{item}</span>
@@ -698,7 +692,7 @@ export function LandingPage() {
             {visaGuides.map((guide, i) => (
               <FadeUp key={guide.slug} delay={i * 0.08}>
                 <Link href={`/guides/${guide.slug}`} className="block h-full">
-                  <div className="h-full rounded-2xl border border-slate-200 bg-white p-6 group hover:shadow-md hover:border-slate-300 transition-all cursor-pointer">
+                  <div className="h-full rounded-lg border border-slate-200 bg-white p-6 group hover:shadow-sm hover:border-slate-300 transition-all cursor-pointer">
                     <div className={`inline-flex rounded-xl p-3 text-2xl mb-4 ${guide.color}`}>{guide.icon}</div>
                     <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">{guide.title}</h3>
                     <p className="mt-1 text-sm text-slate-500 leading-relaxed">{guide.subtitle}</p>
@@ -717,8 +711,8 @@ export function LandingPage() {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <FadeUp>
-            <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="h-14 w-14 rounded-2xl bg-red-100 flex items-center justify-center shrink-0">
+            <div className="max-w-5xl mx-auto rounded-lg bg-white border border-red-200 p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="h-14 w-14 rounded-md bg-red-50 border border-red-100 flex items-center justify-center shrink-0">
                 <Shield className="h-7 w-7 text-red-600" />
               </div>
               <div className="flex-1">
@@ -741,7 +735,7 @@ export function LandingPage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 to-indigo-700">
+      <section className="py-24 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <FadeUp>
             <div className="flex justify-center gap-3 mb-8">
@@ -750,7 +744,7 @@ export function LandingPage() {
                   key={i}
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 2.2, delay: i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  className="h-12 w-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center"
+                  className="h-12 w-12 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center"
                 >
                   <Icon className="h-5 w-5 text-white" />
                 </motion.div>

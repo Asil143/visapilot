@@ -9,11 +9,12 @@ import {
   FolderOpen,
   Timer,
   BarChart3,
-  Search,
   AlertTriangle,
   Calculator,
+  Compass,
   ListChecks,
   ScrollText,
+  UserCircle,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,22 +27,23 @@ export interface NavItem {
 }
 
 export const dashboardNav: NavItem[] = [
-  { title: "Dashboard",  href: "/dashboard",          icon: LayoutDashboard },
-  { title: "AI Assistant", href: "/ai-assistant",     icon: Bot             },
-  { title: "My Cases",   href: "/dashboard/cases",    icon: FolderOpen      },
-  { title: "Timeline",   href: "/dashboard/timeline", icon: Calendar        },
-  { title: "Documents",  href: "/dashboard/documents",icon: FileText        },
-  { title: "Community",  href: "/community",           icon: Users           },
+  { title: "Home", href: "/dashboard", icon: LayoutDashboard },
+  { title: "Profile", href: "/dashboard/profile", icon: UserCircle },
+  { title: "Timeline", href: "/dashboard/timeline", icon: Calendar },
+  { title: "AI Assistant", href: "/ai-assistant", icon: Bot },
+  { title: "Documents", href: "/dashboard/documents", icon: FileText },
+  { title: "Cases", href: "/dashboard/cases", icon: FolderOpen },
+  { title: "Community", href: "/community", icon: Users },
 ];
 
 export const toolsNav: NavItem[] = [
-  { title: "Visa Checklists", href: "/dashboard/tools/checklists",    icon: ListChecks,  description: "Step-by-step guides for every visa type" },
-  { title: "Form Guides",     href: "/dashboard/tools/forms",          icon: ScrollText,  description: "AI-guided USCIS form interviews", badge: "New" },
-  { title: "OPT Day Counter", href: "/dashboard/tools/opt-tracker",   icon: Timer,       description: "Track OPT unemployment days" },
-  { title: "Visa Bulletin",   href: "/dashboard/tools/visa-bulletin",  icon: BarChart3,   description: "Priority date tracker & wait estimator" },
-  { title: "Case Status",     href: "/dashboard/tools/case-status",    icon: Search,      description: "Check USCIS case status" },
-  { title: "Fee Calculator",  href: "/dashboard/tools/fee-calculator", icon: Calculator,  description: "Calculate USCIS filing fees" },
-  { title: "RFE Assistant",   href: "/rfe-assistant",                  icon: AlertTriangle, description: "Build your RFE response", badge: "Pro" },
+  { title: "Visa Path Finder", href: "/visa-finder", icon: Compass, description: "Find pathways worth researching next" },
+  { title: "Visa Checklists", href: "/dashboard/tools/checklists", icon: ListChecks, description: "Step-by-step guides for every visa type" },
+  { title: "OPT Day Counter", href: "/dashboard/tools/opt-tracker", icon: Timer, description: "Track OPT unemployment days" },
+  { title: "Form worksheets", href: "/dashboard/tools/forms", icon: ScrollText, description: "Prepare answers before filing on USCIS.gov" },
+  { title: "Visa Bulletin", href: "/dashboard/tools/visa-bulletin", icon: BarChart3, description: "Priority date tracker & wait estimator" },
+  { title: "Fee Calculator", href: "/dashboard/tools/fee-calculator", icon: Calculator, description: "Calculate USCIS filing fees" },
+  { title: "RFE Assistant", href: "/rfe-assistant", icon: AlertTriangle, description: "Build your RFE response", badge: "Pack" },
 ];
 
 export const settingsNav: NavItem[] = [

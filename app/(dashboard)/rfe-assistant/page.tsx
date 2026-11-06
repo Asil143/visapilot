@@ -252,7 +252,7 @@ function parseDeadlineDate(deadlineStr: string): string | null {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function RFEAssistantPage() {
-  const { user } = useUser();
+  const { isSignedIn, user } = useUser();
   const [step, setStep] = useState<"paste" | "analyze" | "response">("paste");
   const [rfeText, setRfeText] = useState("");
   const [receiptNumber, setReceiptNumber] = useState("");
@@ -269,6 +269,10 @@ export default function RFEAssistantPage() {
   const [deadlineAdded, setDeadlineAdded] = useState(false);
 
   async function handleAnalyze() {
+    if (!isSignedIn) {
+      setError("Sign in to analyze an RFE. The analyzer is included in the RFE Response Pack ($39) or All-Access.");
+      return;
+    }
     setAnalyzing(true);
     setError(null);
     try {
@@ -281,7 +285,13 @@ export default function RFEAssistantPage() {
         }),
         fetch("/api/profile"),
       ]);
-      const data = await rfeRes.json();
+      const data = await rfeRes.json().catch(() => ({}));
+      if (rfeRes.status === 401) {
+        throw new Error("Sign in to analyze an RFE.");
+      }
+      if (rfeRes.status === 403) {
+        throw new Error("The RFE analyzer is included in the RFE Response Pack ($39) or All-Access.");
+      }
       if (!rfeRes.ok) throw new Error(data.error || "Analysis failed");
       if (profRes.ok) {
         const prof = await profRes.json();
@@ -360,22 +370,28 @@ export default function RFEAssistantPage() {
   const coverLetter = analysis ? buildCoverLetter(analysis, receiptNumber, profile) : "";
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-4 md:p-8 max-w-3xl">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-1">
           <AlertTriangle className="h-6 w-6 text-orange-500" />
           <h1 className="text-2xl font-bold">RFE Response Assistant</h1>
-          <Badge variant="warning" className="text-xs">Pro</Badge>
+          <Badge variant="warning" className="text-xs">Pack · $39</Badge>
         </div>
         <p className="text-muted-foreground text-sm">
-          Paste your USCIS Request for Evidence — AI breaks it down, builds your evidence checklist, drafts responses, and exports a complete PDF package.
+          Paste your USCIS Request for Evidence — AI breaks it down, builds an evidence checklist, drafts response frameworks, and exports a draft PDF for attorney review.
         </p>
       </div>
 
       {/* ── Step 1: Paste ── */}
       {step === "paste" && (
         <div className="space-y-4">
+          {!isSignedIn && (
+            <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-800 flex flex-col sm:flex-row sm:items-center gap-3">
+              <p className="flex-1">Sign in, then buy the RFE Response Pack ($39) or All-Access to run the analyzer.</p>
+              <Link href="/sign-in" className="text-xs font-semibold underline shrink-0">Sign in</Link>
+            </div>
+          )}
           <Card>
             <CardContent className="p-5 space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -409,8 +425,15 @@ export default function RFEAssistantPage() {
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
-                  <AlertCircle className="h-4 w-4 shrink-0" /> {error}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-red-700 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                  <div className="flex items-start gap-2 flex-1">
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" /> {error}
+                  </div>
+                  {(error.includes("Sign in") || error.includes("Pack")) && (
+                    <Link href={error.includes("Sign in") ? "/sign-in" : "/pricing"} className="text-xs font-semibold text-red-800 underline shrink-0">
+                      {error.includes("Sign in") ? "Sign in" : "See pricing"}
+                    </Link>
+                  )}
                 </div>
               )}
 
@@ -430,7 +453,7 @@ export default function RFEAssistantPage() {
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 flex gap-3">
             <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
             <div className="text-sm text-blue-800">
-              <p className="font-semibold">What you get for $49</p>
+              <p className="font-semibold">What you get with the RFE Response Pack — $39</p>
               <ul className="mt-1 space-y-0.5 list-disc list-inside text-xs text-blue-700">
                 <li>AI identifies every USCIS issue with plain-English explanation</li>
                 <li>Specific evidence checklist for each issue</li>

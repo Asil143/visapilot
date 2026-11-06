@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 py-14 max-w-3xl">
           <p className="text-sm font-medium text-blue-600 mb-2">Legal</p>
           <h1 className="text-4xl font-bold text-slate-900 mb-3">Privacy Policy</h1>
-          <p className="text-slate-500 text-sm">Last updated: May 31, 2026 &nbsp;·&nbsp; Effective: May 31, 2026</p>
+          <p className="text-slate-500 text-sm">Last updated: October 13, 2026 &nbsp;·&nbsp; Effective: October 13, 2026</p>
         </div>
       </div>
 
@@ -30,8 +30,8 @@ export default function PrivacyPage() {
         {/* Intro callout */}
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-5 mb-12 text-sm text-blue-800 leading-6">
           <strong>Summary:</strong> We collect only what&apos;s necessary to run StatusClock. We never sell your data.
-          AI conversations are processed by Anthropic but not stored beyond your session.
-          You can delete your account and data at any time.
+          AI conversations are sent to Anthropic and saved to your account so you can reopen them.
+          You can ask us to delete your account and data at any time.
         </div>
 
         <Section title="1. Who We Are">
@@ -60,9 +60,8 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong className="text-slate-800">AI Assistant conversations:</strong> Messages you send to the AI
-              Assistant are transmitted to Anthropic&apos;s Claude API. We do not permanently store your conversation
-              history on our servers unless you use a Save feature. Anthropic may retain messages per their
-              own privacy policy.
+              Assistant are transmitted to Anthropic&apos;s Claude API and stored in your StatusClock account so you
+              can reopen chats. Anthropic may retain messages per their own privacy policy.
             </li>
             <li>
               <strong className="text-slate-800">Checklist & tool data:</strong> If you are signed in, we save
@@ -75,6 +74,14 @@ export default function PrivacyPage() {
             <li>
               <strong className="text-slate-800">Support communications:</strong> If you contact us by email,
               we keep a record of that correspondence.
+            </li>
+            <li>
+              <strong className="text-slate-800">Form worksheets:</strong> Answers you enter in form interviews
+              are stored so you can reuse them. These are worksheets, not official USCIS filings.
+            </li>
+            <li>
+              <strong className="text-slate-800">Payment screenshots:</strong> If you buy a pack during beta, we
+              store the screenshot you upload so we can confirm payment.
             </li>
           </ul>
 
@@ -101,10 +108,9 @@ export default function PrivacyPage() {
 
           <h3 className="font-semibold text-slate-800 mt-6">2.3 Payment Information</h3>
           <p>
-            Payments are processed by Stripe, Inc. We never see or store your full credit card number, CVV,
-            or billing address on our servers. Stripe provides us with a tokenized reference and basic
-            billing details (last 4 digits, card brand, expiration). Stripe&apos;s privacy policy governs
-            how they handle payment data.
+            During beta, paid plans are confirmed manually. You send payment through Cash App, PayPal, Venmo,
+            Chime, or Zelle and upload a screenshot. We do not collect card numbers. Those payment apps have
+            their own privacy policies. If we add card checkout later, we will update this section.
           </p>
         </Section>
 
@@ -178,9 +184,9 @@ export default function PrivacyPage() {
               <tbody>
                 {[
                   ["Clerk", "Authentication & user management", "Name, email, login activity"],
-                  ["Supabase", "Database & file storage", "Account data, checklist state"],
-                  ["Anthropic (Claude API)", "AI Assistant responses", "Chat messages you send"],
-                  ["Stripe", "Payment processing", "Billing info (tokenized)"],
+                  ["Supabase", "Database & file storage", "Account data, checklist state, form worksheets"],
+                  ["Anthropic (Claude API)", "AI Assistant and RFE analyzer", "Chat and RFE text you send"],
+                  ["Resend", "Transactional email", "Name, email, support messages"],
                   ["Vercel", "Hosting & edge functions", "Request logs, IP address"],
                 ].map(([service, purpose, data]) => (
                   <tr key={service} className="border-b border-slate-100">
@@ -221,7 +227,8 @@ export default function PrivacyPage() {
           <ul className="list-disc pl-5 space-y-2">
             <li><strong className="text-slate-800">Account data:</strong> Retained while your account is active.</li>
             <li><strong className="text-slate-800">Checklist & tool data:</strong> Retained while your account is active; deleted within 30 days of account deletion.</li>
-            <li><strong className="text-slate-800">AI chat messages:</strong> Not stored on our servers beyond the active session. Anthropic retains messages per their policy.</li>
+            <li><strong className="text-slate-800">AI chat messages:</strong> Saved to your account so you can reopen conversations. Anthropic also retains messages per their policy.</li>
+            <li><strong className="text-slate-800">Payment screenshots:</strong> Kept only long enough to confirm a pack or All-Access purchase, then deleted.</li>
             <li><strong className="text-slate-800">Billing records:</strong> Retained for 7 years to comply with tax and accounting laws.</li>
             <li><strong className="text-slate-800">Support emails:</strong> Retained for 2 years after the issue is resolved.</li>
             <li><strong className="text-slate-800">Server logs:</strong> Retained for 90 days, then automatically deleted.</li>
@@ -251,9 +258,9 @@ export default function PrivacyPage() {
 
         <Section title="10. Data Security">
           <p>
-            We implement industry-standard security measures including TLS encryption in transit,
-            AES-256 encryption at rest (via Supabase), access controls, and regular security reviews.
-            Clerk handles authentication with industry-leading security practices including MFA support.
+            We use TLS in transit, store account data with Supabase (which encrypts data at rest),
+            and rely on Clerk for authentication including optional MFA. Access to admin tools is limited
+            to StatusClock operators.
           </p>
           <p>
             No system is 100% secure. If we become aware of a data breach that affects your rights,

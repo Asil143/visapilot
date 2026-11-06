@@ -12,8 +12,26 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Check, Crown, Shield, User, CreditCard, Trash2, Loader2 } from "lucide-react";
-import { PLANS } from "@/lib/stripe/client";
+import Link from "next/link";
 import { PaymentModal, type PlanInfo } from "@/components/payments/PaymentModal";
+import { SUPPORT_EMAIL } from "@/lib/site";
+
+const PLAN_LABELS: Record<string, string> = {
+  free: "Free",
+  h1b: "H-1B Season Pack",
+  opt: "OPT / STEM OPT Pack",
+  rfe: "RFE Response Pack",
+  greencard: "Green Card Prep Pack",
+  "all-access": "All-Access",
+};
+
+const PACK_OFFERS: PlanInfo[] = [
+  { id: "opt", name: "OPT / STEM OPT Pack", price: 19, period: "one-time" },
+  { id: "h1b", name: "H-1B Season Pack", price: 29, period: "one-time" },
+  { id: "rfe", name: "RFE Response Pack", price: 39, period: "one-time" },
+  { id: "greencard", name: "Green Card Prep Pack", price: 49, period: "one-time" },
+  { id: "all-access", name: "All-Access Plan", price: 99, period: "/ year" },
+];
 
 const COUNTRIES = ["India", "China", "Mexico", "Brazil", "Philippines", "Nigeria", "South Korea", "Pakistan", "Other"];
 const VISA_TYPES = [
@@ -72,12 +90,13 @@ export default function SettingsPage() {
     setTimeout(() => setSaved(false), 2000);
   }
 
-  const currentPlan = (currentPlanKey in PLANS ? currentPlanKey : "free") as keyof typeof PLANS;
+  const currentPlan = currentPlanKey || "free";
+  const currentPlanName = PLAN_LABELS[currentPlan] ?? (currentPlan === "free" ? "Free" : "Paid plan");
 
   const userEmail = user?.emailAddresses?.[0]?.emailAddress ?? "";
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-4 md:p-8 max-w-3xl">
       {upgradeModal && <PaymentModal plan={upgradeModal} onClose={() => setUpgradeModal(null)} userEmail={userEmail} />}
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Settings</h1>
@@ -175,46 +194,40 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold capitalize">{currentPlan}</span>
+                    <span className="text-xl font-bold">{currentPlanName}</span>
                     <Badge variant={currentPlan === "free" ? "secondary" : "default"}>
                       {currentPlan === "free" ? "Free" : "Active"}
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {currentPlan === "free" ? "Free forever with limited AI queries" : "Full access to all features"}
+                    {currentPlan === "free"
+                      ? "Checklists, bulletin, and 10 AI questions per month."
+                      : currentPlan === "all-access"
+                        ? "All packs, unlimited AI, and email deadline alerts."
+                        : "Event pack access. Buy another pack or All-Access anytime."}
                   </p>
                 </div>
                 {currentPlan === "free" && (
-                  <Button size="sm" onClick={() => setUpgradeModal({ id: "all-access", name: "All-Access Plan", price: 99, period: "/ year" })}>
-                    <Crown className="mr-2 h-4 w-4" /> Upgrade
+                  <Button size="sm" asChild>
+                    <Link href="/pricing"><Crown className="mr-2 h-4 w-4" /> See pricing</Link>
                   </Button>
                 )}
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {(["free", "pro", "premium"] as const).map(planKey => {
-                  const p = PLANS[planKey];
-                  const isActive = currentPlan === planKey;
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {PACK_OFFERS.map(pack => {
+                  const isActive = currentPlan === pack.id;
                   return (
-                    <div key={planKey} className={`rounded-lg border p-4 ${isActive ? "border-primary bg-primary/5" : ""}`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold capitalize">{p.name}</span>
+                    <div key={pack.id} className={`rounded-lg border p-4 ${isActive ? "border-primary bg-primary/5" : ""}`}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-semibold text-sm">{pack.name}</span>
                         {isActive && <Badge variant="info" className="text-xs">Current</Badge>}
                       </div>
-                      <p className="text-2xl font-bold">
-                        {"price" in p && p.price === 0 ? "Free" : `${"monthlyPrice" in p ? p.monthlyPrice : 0}/mo`}
-                      </p>
-                      <ul className="mt-3 space-y-1.5">
-                        {p.features.slice(0, 3).map(f => (
-                          <li key={f} className="text-xs text-muted-foreground flex items-start gap-1.5">
-                            <Check className="h-3.5 w-3.5 text-green-500 shrink-0 mt-0.5" />{f}
-                          </li>
-                        ))}
-                      </ul>
-                      {!isActive && planKey !== "free" && (
+                      <p className="text-lg font-bold">${pack.price} <span className="text-xs font-normal text-muted-foreground">{pack.period}</span></p>
+                      {!isActive && (
                         <Button variant="outline" size="sm" className="w-full mt-3"
-                          onClick={() => setUpgradeModal({ id: planKey, name: p.name, price: "monthlyPrice" in p ? p.monthlyPrice : 0, period: "/ mo" })}>
-                          Upgrade to {p.name}
+                          onClick={() => setUpgradeModal(pack)}>
+                          Buy {pack.name}
                         </Button>
                       )}
                     </div>
@@ -233,8 +246,8 @@ export default function SettingsPage() {
             <CardContent>
               <p className="text-sm text-muted-foreground">
                 {currentPlan === "free"
-                  ? "No active plan. Buy a pack or All-Access on the pricing page."
-                  : `You are on the ${PLANS[currentPlan].name} plan. To cancel or change, email kamepalliasil143@gmail.com.`}
+                  ? "No paid pack yet. Buy a pack or All-Access on the pricing page. Payments are person-to-person and activated after we confirm your screenshot."
+                  : `You are on ${currentPlanName}. To cancel or change, email ${SUPPORT_EMAIL}.`}
               </p>
               {currentPlan === "free" && (
                 <Button size="sm" className="mt-3" onClick={() => setUpgradeModal({ id: "all-access", name: "All-Access Plan", price: 99, period: "/ year" })}>
@@ -289,7 +302,7 @@ export default function SettingsPage() {
               <p className="text-sm text-muted-foreground mb-4">
                 Deleting your account is irreversible. All your cases, documents, and chat history will be permanently deleted.
               </p>
-              <Button variant="destructive" size="sm" onClick={() => { if (confirm("Are you sure? This permanently deletes your account and all data. This cannot be undone.")) window.open("mailto:kamepalliasil143@gmail.com?subject=Account%20Deletion%20Request", "_blank"); }}>Delete Account</Button>
+              <Button variant="destructive" size="sm" onClick={() => { if (confirm("Are you sure? This permanently deletes your account and all data. This cannot be undone.")) window.open(`mailto:${SUPPORT_EMAIL}?subject=Account%20Deletion%20Request`, "_blank"); }}>Delete Account</Button>
             </CardContent>
           </Card>
         </TabsContent>

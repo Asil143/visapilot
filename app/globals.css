@@ -1,45 +1,86 @@
 @import "tailwindcss";
+@import "./redesign.css";
 
 @theme {
-  --color-background: hsl(210 20% 98%);
-  --color-foreground: hsl(222 47% 11%);
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222.2 84% 4.9%);
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222.2 84% 4.9%);
-  --color-primary: hsl(220 72% 46%);
-  --color-primary-foreground: hsl(210 40% 98%);
-  --color-secondary: hsl(215 25% 95%);
-  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
-  --color-muted: hsl(215 25% 95%);
-  --color-muted-foreground: hsl(215 13% 43%);
-  --color-accent: hsl(215 25% 95%);
-  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(210 40% 98%);
-  --color-border: hsl(214 24% 89%);
-  --color-input: hsl(214 24% 89%);
-  --color-ring: hsl(220 72% 46%);
-
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
-  --color-brand-950: #172554;
-
-  --radius-sm: calc(0.5rem - 4px);
-  --radius-md: calc(0.5rem - 2px);
-  --radius-lg: 0.5rem;
-
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --color-background: #f7f5ed;
+  --color-foreground: #203b30;
+  --color-card: #fffdf7;
+  --color-card-foreground: #203b30;
+  --color-popover: #fffdf7;
+  --color-popover-foreground: #203b30;
+  --color-primary: #203f32;
+  --color-primary-foreground: #f7f5ed;
+  --color-secondary: #e9ecdf;
+  --color-secondary-foreground: #203b30;
+  --color-muted: #eeeee4;
+  --color-muted-foreground: #596450;
+  --color-accent: #e6ecdc;
+  --color-accent-foreground: #203b30;
+  --color-destructive: #b73d2c;
+  --color-destructive-foreground: #fffdf7;
+  --color-border: #dcded1;
+  --color-input: #dcded1;
+  --color-ring: #466a3c;
+  --color-brand-50: #f3f5ed;
+  --color-brand-100: #e6ecdc;
+  --color-brand-200: #cedbbf;
+  --color-brand-300: #afc49d;
+  --color-brand-400: #89a575;
+  --color-brand-500: #648651;
+  --color-brand-600: #466a3c;
+  --color-brand-700: #34542f;
+  --color-brand-800: #29432a;
+  --color-brand-900: #203b30;
+  --color-brand-950: #14281f;
+  --color-blue-50: #f3f5ed;
+  --color-blue-100: #e6ecdc;
+  --color-blue-200: #cedbbf;
+  --color-blue-300: #afc49d;
+  --color-blue-400: #89a575;
+  --color-blue-500: #648651;
+  --color-blue-600: #466a3c;
+  --color-blue-700: #34542f;
+  --color-blue-800: #29432a;
+  --color-blue-900: #203b30;
+  --color-blue-950: #14281f;
+  --color-indigo-50: #f3f5ed;
+  --color-indigo-100: #e6ecdc;
+  --color-indigo-200: #cedbbf;
+  --color-indigo-300: #afc49d;
+  --color-indigo-400: #89a575;
+  --color-indigo-500: #648651;
+  --color-indigo-600: #466a3c;
+  --color-indigo-700: #34542f;
+  --color-indigo-800: #29432a;
+  --color-indigo-900: #203b30;
+  --color-indigo-950: #14281f;
+  --color-sky-50: #f3f5ed;
+  --color-sky-100: #e6ecdc;
+  --color-sky-200: #cedbbf;
+  --color-sky-300: #afc49d;
+  --color-sky-400: #89a575;
+  --color-sky-500: #648651;
+  --color-sky-600: #466a3c;
+  --color-sky-700: #34542f;
+  --color-sky-800: #29432a;
+  --color-sky-900: #203b30;
+  --color-sky-950: #14281f;
+  --color-slate-50: #f7f7ef;
+  --color-slate-100: #efefe5;
+  --color-slate-200: #dfdfd3;
+  --color-slate-300: #c5c9bb;
+  --color-slate-400: #929c8d;
+  --color-slate-500: #5b6652;
+  --color-slate-600: #4e5d4e;
+  --color-slate-700: #374b3c;
+  --color-slate-800: #293d30;
+  --color-slate-900: #203b30;
+  --color-slate-950: #14281f;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-mono: var(--font-mono-var, ui-monospace), monospace;
-
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-fade-in: fade-in 0.5s ease-out;
@@ -47,45 +88,62 @@
 }
 
 @keyframes accordion-down {
-  from { height: 0; }
-  to { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); }
-  to { height: 0; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes slide-in {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 :root {
-  --background: 210 20% 98%;
-  --foreground: 222 47% 11%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 220 72% 46%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 215 25% 95%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 215 25% 95%;
-  --muted-foreground: 215 13% 43%;
-  --accent: 215 25% 95%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214 24% 89%;
-  --input: 214 24% 89%;
-  --ring: 220 72% 46%;
-  --radius: 0.5rem;
+  --background: 48 38% 95%;
+  --foreground: 154 30% 18%;
+  --card: 45 100% 98%;
+  --card-foreground: 154 30% 18%;
+  --popover: 45 100% 98%;
+  --popover-foreground: 154 30% 18%;
+  --primary: 155 33% 19%;
+  --primary-foreground: 48 38% 95%;
+  --secondary: 74 26% 90%;
+  --secondary-foreground: 154 30% 18%;
+  --muted: 60 23% 91%;
+  --muted-foreground: 93 11% 35%;
+  --accent: 83 30% 89%;
+  --accent-foreground: 154 30% 18%;
+  --destructive: 7 61% 45%;
+  --destructive-foreground: 45 100% 98%;
+  --border: 69 16% 85%;
+  --input: 69 16% 85%;
+  --ring: 108 28% 33%;
+  --radius: 0.625rem;
 }
-
 
 * {
   border-color: var(--color-border);
@@ -94,7 +152,9 @@
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
   text-rendering: optimizeLegibility;
 }
 
@@ -108,15 +168,35 @@ body {
 
 .surface-grid {
   background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--color-border) 55%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-border) 55%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-border) 55%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 40px 40px;
   mask-image: linear-gradient(to bottom, black, transparent 78%);
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Custom scrollbar */
@@ -128,20 +208,31 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--color-muted-foreground) 30%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--color-muted-foreground) 30%,
+    transparent
+  );
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--color-muted-foreground) 50%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--color-muted-foreground) 50%,
+    transparent
+  );
 }
 
 /* Chat message prose */
-.prose-chat h1, .prose-chat h2, .prose-chat h3 {
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3 {
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-.prose-chat ul, .prose-chat ol {
+.prose-chat ul,
+.prose-chat ol {
   padding-left: 1.5rem;
   margin: 0.5rem 0;
 }

@@ -43,7 +43,7 @@ const TOOLS = [
   {
     icon: Clock,
     title: "Processing Times",
-    description: "Current USCIS processing times for all major forms by service center. Updated from official USCIS data.",
+    description: "Snapshot of published USCIS ranges by form and service center. Always verify on USCIS.gov before you file.",
     href: "/dashboard/tools/processing-times",
     color: "bg-orange-50 text-orange-600",
     badge: null,
@@ -52,25 +52,25 @@ const TOOLS = [
   {
     icon: FilePlus2,
     title: "Document Generator",
-    description: "AI-generated I-765 cover letters, STEM OPT letters, employer support letters, and RFE response drafts.",
+    description: "Cover letters and petition drafts are not available yet. Opens a coming-soon page with worksheets and the RFE assistant as alternatives.",
     href: "/dashboard/documents/generate",
     color: "bg-pink-50 text-pink-600",
-    badge: "Pro",
-    phase: "Pro",
+    badge: "Soon",
+    phase: "Soon",
   },
   {
     icon: AlertTriangle,
     title: "RFE Assistant",
-    description: "Paste your RFE notice. Our AI breaks down each issue, generates a response checklist, and drafts your reply.",
+    description: "Paste your RFE notice. AI breaks down each issue, builds an evidence checklist, and drafts a response for attorney review. Pack — $39.",
     href: "/rfe-assistant",
     color: "bg-red-50 text-red-600",
-    badge: "Pro",
-    phase: "Pro",
+    badge: "Pack",
+    phase: "Pack",
   },
   {
     icon: ScrollText,
-    title: "Form Guides",
-    description: "AI-guided interviews for USCIS forms — I-864, I-765, I-485, N-400 and more. Get all your answers organized before filling the official form.",
+    title: "Form worksheets",
+    description: "Guided interviews for I-864, I-765, I-485, N-400 and more. You get a data sheet to copy onto the official USCIS PDF.",
     href: "/dashboard/tools/forms",
     color: "bg-teal-50 text-teal-600",
     badge: "New",
@@ -80,14 +80,14 @@ const TOOLS = [
 
 export default function ToolsPage() {
   return (
-    <div className="p-8 max-w-6xl">
+    <div className="p-4 md:p-8 max-w-6xl">
       <div className="mb-8 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
           <Wrench className="h-5 w-5 text-primary" />
         </div>
         <div>
           <h1 className="text-2xl font-bold">Immigration Tools</h1>
-          <p className="text-muted-foreground text-sm mt-0.5">Calculators, trackers, and generators for every stage of your immigration journey</p>
+          <p className="text-muted-foreground text-sm mt-0.5">Checklists, trackers, worksheets, and calculators for every stage of your immigration journey</p>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function ToolsPage() {
 
       <div className="mt-10 rounded-2xl bg-gradient-to-r from-primary to-blue-700 p-6 text-white">
         <h2 className="text-lg font-bold">More tools coming soon</h2>
-        <p className="mt-1 text-sm text-white/80">H-1B lottery predictor, NIW eligibility checker, naturalization timeline calculator, and more.</p>
+        <p className="mt-1 text-sm text-white/80">Document generator, attorney AMAs, and more live data tools are on the roadmap — we will ship them when they are real.</p>
       </div>
     </div>
   );

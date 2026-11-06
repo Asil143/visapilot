@@ -2,6 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { getUserPlan } from "@/lib/supabase/subscription";
+import { z } from "zod";
+import { allowRequest } from "@/lib/utils/rate-limit";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
 
@@ -29,24 +31,39 @@ Rules:
 - Always include a disclaimer note that responses need attorney review
 - Respond with ONLY the JSON object — no other text`;
 
+const rfePayloadSchema = z.object({
+  rfeText: z.string().trim().min(50, "RFE text is too short or missing").max(100_000, "RFE text is too long"),
+});
+
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  if (!allowRequest(`rfe:${userId}`, 5, 15 * 60 * 1000)) {
+    return NextResponse.json({ error: "Too many RFE analyses. Please try again later." }, { status: 429 });
+  }
 
   const plan = await getUserPlan(userId);
   if (plan === "free") {
     return NextResponse.json(
-      { error: "The RFE Analyzer requires an active plan. Upgrade at /pricing to unlock it." },
+      { error: "The RFE analyzer is included in the RFE Response Pack ($39) or All-Access. Upgrade at /pricing." },
       { status: 403 }
     );
   }
 
-  const { rfeText } = await req.json();
-  if (!rfeText || typeof rfeText !== "string" || rfeText.trim().length < 50) {
-    return NextResponse.json({ error: "RFE text is too short or missing" }, { status: 400 });
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
   }
+
+  const parsed = rfePayloadSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid RFE text" }, { status: 400 });
+  }
+  const { rfeText } = parsed.data;
 
   try {
     const message = await anthropic.messages.create({

@@ -9,6 +9,7 @@ interface FeeItem {
   name: string;
   code: string;
   baseFee: number;
+  smallEmployerFee?: number;
   biometricFee?: number;
   premiumFee?: number;
   notes?: string;
@@ -32,7 +33,7 @@ const visaPaths: VisaPath[] = [
     badge: "F-1 OPT",
     badgeColor: "bg-blue-100 text-blue-800",
     fees: [
-      { name: "Form I-765 (EAD Application)", code: "I-765", baseFee: 470, biometricFee: 0, required: true, notes: "No biometric fee for F-1 OPT as of Mar 2024" },
+      { name: "Form I-765 (EAD Application)", code: "I-765", baseFee: 470, biometricFee: 0, required: true, notes: "$470 online or $520 on paper; no separate biometric fee" },
     ],
   },
   {
@@ -42,7 +43,7 @@ const visaPaths: VisaPath[] = [
     badge: "STEM OPT",
     badgeColor: "bg-purple-100 text-purple-800",
     fees: [
-      { name: "Form I-765 (EAD Extension)", code: "I-765", baseFee: 470, required: true, notes: "Must file while initial OPT is valid" },
+      { name: "Form I-765 (EAD Extension)", code: "I-765", baseFee: 470, required: true, notes: "$470 online or $520 on paper; must file while initial OPT is valid" },
     ],
   },
   {
@@ -52,7 +53,7 @@ const visaPaths: VisaPath[] = [
     badge: "H-1B",
     badgeColor: "bg-green-100 text-green-800",
     fees: [
-      { name: "Form I-129 (Petition)", code: "I-129", baseFee: 730, required: true, notes: "Base filing fee" },
+      { name: "Form I-129 (Petition)", code: "I-129", baseFee: 730, smallEmployerFee: 460, required: true, notes: "$730 online or $780 on paper for regular employers; $460 for small employers/nonprofits" },
       { name: "ACWIA Training Fee (≤25 employees)", code: "ACWIA-S", baseFee: 750, required: false, notes: "For employers with ≤25 full-time employees" },
       { name: "ACWIA Training Fee (>25 employees)", code: "ACWIA-L", baseFee: 1500, required: false, notes: "For employers with >25 full-time employees" },
       { name: "Fraud Prevention & Detection Fee", code: "FPDF", baseFee: 500, required: true },
@@ -68,10 +69,12 @@ const visaPaths: VisaPath[] = [
     badge: "H-1B Transfer",
     badgeColor: "bg-teal-100 text-teal-800",
     fees: [
-      { name: "Form I-129 (Petition)", code: "I-129", baseFee: 730, required: true },
+      { name: "Form I-129 (Petition)", code: "I-129", baseFee: 730, smallEmployerFee: 460, required: true, notes: "$730 online or $780 on paper for regular employers; $460 for small employers/nonprofits" },
       { name: "ACWIA Training Fee (≤25 employees)", code: "ACWIA-S", baseFee: 750, required: false, notes: "For employers with ≤25 full-time employees" },
       { name: "ACWIA Training Fee (>25 employees)", code: "ACWIA-L", baseFee: 1500, required: false, notes: "For employers with >25 full-time employees" },
       { name: "Fraud Prevention & Detection Fee", code: "FPDF", baseFee: 500, required: true },
+      { name: "Asylum Program Fee (≤25 employees)", code: "APF-S", baseFee: 300, required: false, notes: "Reduced rate for small employers; waived for nonprofits" },
+      { name: "Asylum Program Fee (>25 employees)", code: "APF-L", baseFee: 600, required: false, notes: "Regular rate; waived for nonprofits" },
       { name: "Premium Processing (optional)", code: "I-907", baseFee: 2805, required: false },
     ],
   },
@@ -84,9 +87,11 @@ const visaPaths: VisaPath[] = [
     fees: [
       { name: "PERM Labor Certification (DOL)", code: "PERM", baseFee: 0, required: true, notes: "Free to file with DOL — attorney fees vary ($3k–$6k)" },
       { name: "Form I-140 (Immigrant Petition)", code: "I-140", baseFee: 715, required: true },
-      { name: "Form I-485 (Adjustment of Status)", code: "I-485", baseFee: 1440, required: true, notes: "Includes biometrics as of 4/1/24" },
-      { name: "Form I-131 (Advance Parole)", code: "I-131", baseFee: 0, required: false, notes: "Included with I-485 concurrent filing" },
-      { name: "Form I-765 (EAD with I-485)", code: "I-765", baseFee: 0, required: false, notes: "Included with I-485 concurrent filing" },
+      { name: "Asylum Program Fee (≤25 employees)", code: "APF-S", baseFee: 300, required: false, notes: "Reduced rate for small employers; waived for nonprofits" },
+      { name: "Asylum Program Fee (>25 employees)", code: "APF-L", baseFee: 600, required: false, notes: "Regular rate; waived for nonprofits" },
+      { name: "Form I-485 (Adjustment of Status)", code: "I-485", baseFee: 1440, required: true, notes: "Standard adult filing; no separate biometric fee" },
+      { name: "Form I-131 (Advance Parole)", code: "I-131", baseFee: 630, required: false, notes: "Current fee for advance parole with a pending I-485; verify filing category" },
+      { name: "Form I-765 (EAD with I-485)", code: "I-765", baseFee: 260, required: false, notes: "Current fee when tied to a pending I-485 filed with a fee on or after April 1, 2024" },
       { name: "Form I-864 (Affidavit of Support)", code: "I-864", baseFee: 0, required: false, notes: "Only if family-sponsored" },
       { name: "Premium Processing for I-140 (optional)", code: "I-907", baseFee: 2805, required: false },
     ],
@@ -99,6 +104,7 @@ const visaPaths: VisaPath[] = [
     badgeColor: "bg-yellow-100 text-yellow-800",
     fees: [
       { name: "Form I-140 (Self-Petition)", code: "I-140", baseFee: 715, required: true },
+      { name: "Asylum Program Fee (self-petitioner)", code: "APF", baseFee: 300, required: true, notes: "Current self-petitioner fee; $0 for a nonprofit petitioner" },
       { name: "Premium Processing for I-140 (optional)", code: "I-907", baseFee: 2805, required: false },
       { name: "Form I-485 (Adjustment of Status)", code: "I-485", baseFee: 1440, required: false, notes: "Only after priority date is current" },
     ],
@@ -110,7 +116,7 @@ const visaPaths: VisaPath[] = [
     badge: "N-400",
     badgeColor: "bg-red-100 text-red-800",
     fees: [
-      { name: "Form N-400 (Application)", code: "N-400", baseFee: 760, required: true, notes: "Includes biometrics fee" },
+      { name: "Form N-400 (Application)", code: "N-400", baseFee: 710, required: true, notes: "$710 online or $760 on paper; no separate biometric fee" },
     ],
   },
   {
@@ -136,6 +142,11 @@ export default function FeeCalculatorPage() {
 
   const isH1bPath = selectedPath === "h1b" || selectedPath === "h1b-transfer";
 
+  const getFeeAmount = (fee: FeeItem) => {
+    if (fee.code === "I-129" && isH1bPath && !largeEmployer) return fee.smallEmployerFee ?? fee.baseFee;
+    return fee.baseFee;
+  };
+
   const getActiveFees = () => {
     return path.fees.filter((fee) => {
       if (fee.code === "ACWIA-S" && (largeEmployer || !isH1bPath)) return false;
@@ -155,9 +166,9 @@ export default function FeeCalculatorPage() {
   };
 
   const activeFees = getActiveFees();
-  const total = activeFees.reduce((sum, f) => sum + f.baseFee, 0);
+  const total = activeFees.reduce((sum, f) => sum + getFeeAmount(f), 0);
 
-  const hasEmployerOptions = isH1bPath;
+  const hasEmployerOptions = isH1bPath || selectedPath === "green-card-eb";
   const hasPremiumOption = path.fees.some((f) => f.code === "I-907");
   const hasAsylumOption = path.fees.some((f) => f.code === "APF" || f.code === "APF-S" || f.code === "APF-L");
 
@@ -170,7 +181,7 @@ export default function FeeCalculatorPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold">USCIS Fee Calculator</h1>
-            <p className="text-sm" style={{ color: "#64748b" }}>Government filing fees as of April 2024</p>
+            <p className="text-sm" style={{ color: "#64748b" }}>USCIS fee schedule — Form G-1055, edition 07/22/25</p>
           </div>
         </div>
         <div className="flex items-start gap-2 mt-3 p-3 rounded-lg" style={{ backgroundColor: "#fefce8", border: "1px solid #fde047" }}>
@@ -250,7 +261,7 @@ export default function FeeCalculatorPage() {
                 {hasAsylumOption && (
                   <label className="flex items-center gap-2 cursor-pointer">
                     <input type="checkbox" checked={includeAsylum} onChange={(e) => setIncludeAsylum(e.target.checked)} className="rounded" />
-                    <span className="text-xs">For-profit employer (Asylum Program Fee)</span>
+                    <span className="text-xs">Include applicable Asylum Program Fee</span>
                   </label>
                 )}
               </CardContent>
@@ -281,7 +292,7 @@ export default function FeeCalculatorPage() {
                         <p className="text-xs font-medium">{fee.name}</p>
                         <p className="text-[10px]" style={{ color: "#94a3b8" }}>{fee.code}</p>
                       </div>
-                      <p className="text-xs font-semibold shrink-0">${fee.baseFee.toLocaleString()}</p>
+                      <p className="text-xs font-semibold shrink-0">${getFeeAmount(fee).toLocaleString()}</p>
                     </div>
                   ))}
                 </div>

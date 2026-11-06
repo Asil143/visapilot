@@ -89,7 +89,7 @@ export default function I864APage() {
       color="violet"
       questions={I864A_QUESTIONS}
       parts={I864A_PARTS}
-      description="For household members combining their income with the sponsor to meet the Form I-864 income requirement. Answer questions in plain English — we'll prepare your official form."
+      description="For household members combining their income with the sponsor to meet the Form I-864 income requirement. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-864A."
       subtext="Used alongside Form I-864 when the sponsor's own income isn't enough to meet the requirement, and a spouse, relative, or dependent living with them agrees to add their income to the household total."
       normalize={normalize}
       prefill={prefill}

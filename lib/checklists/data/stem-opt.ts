@@ -7,7 +7,7 @@ export const stemOpt: ChecklistDef = {
   emoji: "🔬",
   cardColor: "from-purple-500 to-indigo-600",
   keyFacts: [
-    { label: "Filing Fee", value: "$520", sub: "Form I-765", icon: "DollarSign", color: "text-red-600" },
+    { label: "Filing Fee", value: "$470 / $520", sub: "I-765 online / paper", icon: "DollarSign", color: "text-red-600" },
     { label: "Extension Period", value: "24 mo", sub: "on top of 12-mo OPT", icon: "Clock", color: "text-blue-600" },
     { label: "File Window", value: "90 days", sub: "before OPT expires", icon: "Info", color: "text-purple-600" },
     { label: "Max Unemployment", value: "150 days", sub: "cumulative total", icon: "AlertCircle", color: "text-orange-600" },
@@ -79,7 +79,7 @@ export const stemOpt: ChecklistDef = {
         { id: "sf2", text: "Select eligibility category: (c)(3)(C) — STEM OPT extension", type: "form" },
         { id: "sf3", text: "Enter desired STEM OPT start date", type: "form" },
         { id: "sf4", text: "Upload I-20, I-983, current EAD, passport, I-94", type: "form" },
-        { id: "sf5", text: "Pay $520 filing fee", type: "fee" },
+        { id: "sf5", text: "Pay the Form I-765 filing fee: $470 online or $520 on paper", type: "fee" },
         { id: "sf6", text: "Submit and save USCIS receipt number", type: "action" },
       ],
     },

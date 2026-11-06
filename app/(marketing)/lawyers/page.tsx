@@ -40,8 +40,8 @@ const HOW_IT_WORKS = [
   {
     step: "02",
     icon: Users,
-    title: "We match you",
-    desc: "We review your inquiry and connect you with a licensed immigration attorney suited to your case.",
+    title: "We pass your inquiry",
+    desc: "We review your note and email a licensed immigration attorney in our referral network. A match is not guaranteed.",
   },
   {
     step: "03",
@@ -53,8 +53,8 @@ const HOW_IT_WORKS = [
 
 const TRUST_SIGNALS = [
   { icon: Shield,    text: "Attorneys are licensed and in good standing with their state bar" },
-  { icon: Star,      text: "Fixed, transparent fees — no hidden charges or billing surprises" },
-  { icon: FileText,  text: "No obligation — the initial consultation is free" },
+  { icon: Star,      text: "Ask the attorney about fees before you retain them — StatusClock does not set legal fees" },
+  { icon: FileText,  text: "Submitting an inquiry does not create an attorney-client relationship" },
   { icon: Clock,     text: "Response within 1–2 business days" },
 ];
 
@@ -83,7 +83,7 @@ export default function LawyersPage() {
       if (!res.ok) throw new Error("Submission failed");
       setDone(true);
     } catch {
-      setError("Something went wrong. Please email kamepalliasil143@gmail.com directly.");
+      setError("Something went wrong. Please email support@statusclock.com directly.");
     } finally {
       setSubmitting(false);
     }
@@ -104,7 +104,7 @@ export default function LawyersPage() {
           </h1>
           <p className="text-lg text-slate-500 max-w-xl mx-auto leading-7">
             StatusClock is not a law firm. When your situation needs real legal counsel,
-            we connect you with vetted, licensed immigration attorneys — at transparent, fixed fees.
+            we pass your inquiry to licensed immigration attorneys. Fees, if any, are set by the attorney — StatusClock is not a law firm.
           </p>
         </div>
       </section>

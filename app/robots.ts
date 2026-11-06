@@ -1,27 +1,15 @@
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
-        allow: [
-          "/",
-          // Public preview-mode tool pages living under /dashboard/ — kept out
-          // of the blanket disallow below so they stay indexable.
-          "/dashboard/tools/checklists",
-          "/dashboard/tools/opt-tracker",
-          "/dashboard/timeline",
-        ],
-        disallow: [
-          "/api/",
-          "/dashboard/",
-          "/_next/",
-          "/sign-in",
-          "/sign-up",
-        ],
+        allow: "/",
+        disallow: ["/api/", "/admin/", "/settings", "/onboarding", "/sign-in", "/sign-up"],
       },
     ],
-    sitemap: "https://statusclock.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

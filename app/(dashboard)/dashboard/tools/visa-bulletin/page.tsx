@@ -83,7 +83,7 @@ export default function VisaBulletinPage() {
   }
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 md:p-8 max-w-4xl">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-1">
           <BarChart3 className="h-6 w-6 text-primary" />

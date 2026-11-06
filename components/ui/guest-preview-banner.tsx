@@ -9,11 +9,11 @@ interface GuestPreviewBannerProps {
 }
 
 export function GuestPreviewBanner({
-  title = "Sign in to see your real data",
-  description = "This is a preview with sample data. Create a free account to track your own immigration journey.",
+  title = "Sign in to save your data",
+  description = "Create a free account to track your immigration journey. Guest pages stay empty until you sign in.",
 }: GuestPreviewBannerProps) {
   return (
-    <div className="mb-6 rounded-xl border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+    <div className="sc-guest-banner mb-6 rounded-lg border border-border bg-secondary/50 p-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <div className="flex items-center gap-3 flex-1">
         <div className="h-9 w-9 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
           <Sparkles className="h-4 w-4 text-blue-600" />
@@ -25,12 +25,12 @@ export function GuestPreviewBanner({
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <SignInButton mode="modal">
-          <button className="text-xs font-semibold text-blue-600 hover:text-blue-700 px-3 py-1.5 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
+          <button className="text-xs font-medium text-primary px-3 py-2.5 rounded border border-border hover:bg-secondary transition-colors">
             Sign in
           </button>
         </SignInButton>
         <SignUpButton mode="modal">
-          <button className="flex items-center gap-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors">
+          <button className="flex items-center gap-1.5 text-xs font-medium bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-2.5 rounded transition-colors">
             Get started free <ArrowRight className="h-3 w-3" />
           </button>
         </SignUpButton>

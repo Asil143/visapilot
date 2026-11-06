@@ -62,9 +62,12 @@ export default function EmployerLookupPage() {
           </div>
           <h1 className="text-4xl font-bold mb-3">H-1B Employer Sponsorship Lookup</h1>
           <p className="text-lg max-w-xl mx-auto" style={{ color: "#64748b" }}>
-            Find companies that actively sponsor H-1B visas with approval rates, salary data, and common roles.
+            Illustrative snapshot of well-known H-1B sponsors — approval rates, salary bands, and common roles.
           </p>
-          <p className="text-xs mt-3" style={{ color: "#94a3b8" }}>Data sourced from USCIS LCA disclosure data and DOL H-1B employer data</p>
+          <p className="text-xs mt-3 max-w-lg mx-auto" style={{ color: "#64748b" }}>
+            Sample data based on FY2024 USCIS / DOL public filings. Figures are rounded and not a live LCA search.
+            Confirm current sponsorship with the employer and official DOL disclosure files.
+          </p>
         </div>
       </section>
 

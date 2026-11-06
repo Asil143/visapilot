@@ -7,9 +7,9 @@ export const OPT_GUIDE: Guide = {
   subtitle: "Work authorization for F-1 students after graduation",
   overview:
     "Optional Practical Training (OPT) allows F-1 students to work in their field of study for up to 12 months. STEM OPT is a 24-month extension for eligible STEM graduates, for a total of 36 months.",
-  processing_times: "USCIS processing: 3–5 months. Apply 90 days before program end date.",
-  fees: "Form I-765 filing fee: $520.",
-  last_updated: "2025-05-01",
+  processing_times: "Use USCIS's live processing-time tool by form, category, and office; fixed ranges become stale quickly.",
+  fees: "Form I-765: $470 online / $520 paper.",
+  last_updated: "November 2026",
   steps: [
     {
       title: "Request OPT Recommendation from DSO",
@@ -21,7 +21,7 @@ export const OPT_GUIDE: Guide = {
         "DSO updates SEVIS and issues new I-20 with OPT recommendation",
         "Receive OPT I-20 from DSO",
       ],
-      estimated_time: "90 days before program end",
+      estimated_time: "Up to 90 days before program end",
     },
     {
       title: "File Form I-765 with USCIS",
@@ -29,7 +29,7 @@ export const OPT_GUIDE: Guide = {
       action_items: [
         "Complete Form I-765 (Application for Employment Authorization)",
         "Gather required documents: I-20, passport copy, I-94, 2 passport photos",
-        "Pay $520 filing fee",
+        "Pay $470 online or $520 on paper for Form I-765",
         "Submit application (can file online or by mail)",
         "Keep copy of everything submitted",
       ],
@@ -58,7 +58,7 @@ export const OPT_GUIDE: Guide = {
         "Note your OPT start and end dates",
         "You cannot start work before EAD start date",
       ],
-      estimated_time: "3–5 months after filing",
+      estimated_time: "Check USCIS live processing times",
     },
     {
       title: "Report Employment to DSO",
@@ -83,7 +83,7 @@ export const OPT_GUIDE: Guide = {
       estimated_time: "Apply 90 days before OPT end date",
     },
     {
-      title: "Automatic Cap-Gap Extension While Your STEM Extension Is Pending",
+      title: "Automatic 180-Day Extension While STEM OPT Is Pending",
       description:
         "If your DSO recommends the STEM OPT extension and you file Form I-765 with USCIS before your current OPT authorization expires, your F-1 status and work authorization automatically extend for up to 180 days (or until USCIS decides your case, whichever is earlier) while the extension is pending.",
       action_items: [
@@ -115,7 +115,7 @@ export const OPT_GUIDE: Guide = {
       action_items: [
         "If not changing status, you have 60 days to prepare to depart the US, transfer to a new SEVIS program, or begin a new degree",
         "You cannot work during the 60-day grace period, even if you have unused unemployment days left",
-        "If your H-1B change of status has been approved with an October 1 start date, the cap-gap extension covers you through September 30 — no separate grace period needed",
+        "If your H-1B change of status is timely filed and eligible, cap-gap can extend F-1 status and employment authorization; the current regulatory end date is generally April 1 of the fiscal year for which H-1B status is requested",
         "If transferring schools or starting a new program, make sure your SEVIS record is transferred before the grace period ends",
         "Talk to your DSO about your plans well before your authorization ends so your SEVIS record reflects the right next step",
       ],

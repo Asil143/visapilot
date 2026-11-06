@@ -81,13 +81,13 @@ export default function RemindersPage() {
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="text-base">Delivery Channels</CardTitle>
-          <CardDescription>Choose how you want to receive reminders (Pro+ required for SMS)</CardDescription>
+          <CardDescription>Email reminders are available on All-Access. SMS is not offered yet.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {([
-              { id: "email" as Channel, label: "Email", icon: Mail, desc: "kamepalliasil143@gmail.com", available: true },
-              { id: "sms" as Channel, label: "SMS", icon: MessageSquare, desc: "Add phone number in Settings", available: false },
+              { id: "email" as Channel, label: "Email", icon: Mail, desc: "Sent to the email on your account", available: true },
+              { id: "sms" as Channel, label: "SMS", icon: MessageSquare, desc: "Not available yet", available: false },
               { id: "push" as Channel, label: "Push Notifications", icon: Smartphone, desc: "Enable in browser settings", available: false },
             ]).map(ch => {
               const Icon = ch.icon;

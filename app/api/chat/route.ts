@@ -5,6 +5,15 @@ import { SYSTEM_PROMPT } from "@/lib/claude/client";
 import { createAdminClient } from "@/lib/supabase/server";
 import { checkAndConsumeAIQuota } from "@/lib/supabase/subscription";
 import { formatDateLong } from "@/lib/utils/date";
+import { z } from "zod";
+import { allowRequest } from "@/lib/utils/rate-limit";
+
+const chatPayloadSchema = z.object({
+  messages: z.array(z.object({
+    role: z.enum(["user", "assistant"]),
+    content: z.string().trim().min(1).max(12_000),
+  })).min(1).max(30),
+});
 
 async function buildUserContext(userId: string): Promise<string> {
   const supabase = createAdminClient();
@@ -121,17 +130,28 @@ export async function POST(req: NextRequest) {
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  if (!allowRequest(`chat:${userId}`, 20, 60 * 1000)) {
+    return NextResponse.json({ error: "You are sending messages too quickly. Please wait a moment." }, { status: 429 });
+  }
+
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+  }
+
+  const parsed = chatPayloadSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Messages must contain 1–30 valid text messages." }, { status: 400 });
+  }
 
   const quotaError = await checkAndConsumeAIQuota(userId);
   if (quotaError) {
     return NextResponse.json({ error: quotaError }, { status: 429 });
   }
 
-  const { messages } = await req.json();
-
-  if (!messages || !Array.isArray(messages)) {
-    return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
-  }
+  const { messages } = parsed.data;
 
   // Fetch user context and inject into system prompt
   const userContext = await buildUserContext(userId);

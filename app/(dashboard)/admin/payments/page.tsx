@@ -10,8 +10,6 @@ import {
 } from "lucide-react";
 import { format, parseISO } from "date-fns";
 
-const ADMIN_EMAIL = "kamepalliasil143@gmail.com";
-
 interface Submission {
   id: string;
   email: string;
@@ -33,23 +31,25 @@ const STATUS_CONFIG = {
 };
 
 export default function AdminPaymentsPage() {
-  const { user, isLoaded } = useUser();
+  const { isLoaded } = useUser();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false);
   const [filter, setFilter] = useState<"all" | "pending" | "activated" | "rejected">("pending");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [screenshot, setScreenshot] = useState<string | null>(null);
 
-  const isAdmin = user?.emailAddresses?.some(e => e.emailAddress === ADMIN_EMAIL);
-
   useEffect(() => {
     if (!isLoaded) return;
-    if (!isAdmin) { Promise.resolve().then(() => setLoading(false)); return; }
     fetch("/api/admin/payments")
-      .then(r => r.json())
-      .then(d => { setSubmissions(Array.isArray(d) ? d : []); setLoading(false); })
+      .then(async r => {
+        if (r.status === 403) { setAccessDenied(true); setLoading(false); return; }
+        const d = await r.json();
+        setSubmissions(Array.isArray(d) ? d : []);
+        setLoading(false);
+      })
       .catch(() => { setSubmissions([]); setLoading(false); });
-  }, [isLoaded, isAdmin]);
+  }, [isLoaded]);
 
   async function handleAction(id: string, action: "activate" | "reject") {
     setActionLoading(id + action);
@@ -76,7 +76,7 @@ export default function AdminPaymentsPage() {
     );
   }
 
-  if (!isAdmin) {
+  if (accessDenied) {
     return (
       <div className="p-8 flex flex-col items-center justify-center py-32 gap-3 text-center">
         <ShieldAlert className="h-10 w-10 text-red-400" />

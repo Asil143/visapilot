@@ -48,7 +48,10 @@ export async function checkAndConsumeAIQuota(userId: string): Promise<string | n
 
   if (!resetAt || now >= resetAt) {
     used = 0;
-    resetAt = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    // Reset on the first day of the next calendar month. Using the same day
+    // of the next month breaks for dates such as January 31 (it can normalize
+    // into March in JavaScript).
+    resetAt = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
   }
 
   if (used >= FREE_AI_QUERIES_PER_MONTH) {

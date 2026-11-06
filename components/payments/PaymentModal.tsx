@@ -13,6 +13,9 @@ export const PAYMENT_METHODS = [
 
 export interface PlanInfo { id: string; name: string; price: number; period?: string; }
 
+const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
+const ALLOWED_SCREENSHOT_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
+
 export function PaymentModal({ plan, onClose, userEmail = "" }: { plan: PlanInfo; onClose: () => void; userEmail?: string }) {
   const [step, setStep] = useState<"choose" | "confirm" | "done">("choose");
   const [form, setForm] = useState({ email: userEmail, txNote: "" });
@@ -30,6 +33,13 @@ export function PaymentModal({ plan, onClose, userEmail = "" }: { plan: PlanInfo
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null;
+    if (file && (!ALLOWED_SCREENSHOT_TYPES.has(file.type) || file.size > MAX_SCREENSHOT_BYTES)) {
+      setSubmitError("Please choose a PNG, JPG, or WEBP image smaller than 5 MB.");
+      setScreenshot(null);
+      setScreenshotPreview(null);
+      return;
+    }
+    setSubmitError(null);
     setScreenshot(file);
     if (file) {
       const reader = new FileReader();
@@ -100,8 +110,11 @@ export function PaymentModal({ plan, onClose, userEmail = "" }: { plan: PlanInfo
 
         {step === "choose" && (
           <div className="p-6">
-            <p className="text-sm text-slate-500 mb-4">
-              Send <strong className="text-slate-800">${plan.price}</strong> using any of these methods, then click &quot;I&apos;ve paid&quot; to confirm.
+            <p className="text-sm text-slate-600 mb-2">
+              Send <strong className="text-slate-900">${plan.price}</strong> with any method below, then confirm so we can activate access.
+            </p>
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">
+              StatusClock uses person-to-person payment (not card checkout). We review your screenshot and usually activate access within one business day.
             </p>
             <div className="grid grid-cols-2 gap-2 mb-5">
               {PAYMENT_METHODS.map(({ label, handle, href, color, bg, border }) =>
@@ -134,7 +147,7 @@ export function PaymentModal({ plan, onClose, userEmail = "" }: { plan: PlanInfo
 
         {step === "confirm" && (
           <div className="p-6 space-y-4">
-            <p className="text-sm text-slate-500">Upload your payment screenshot and enter your email to activate your plan.</p>
+            <p className="text-sm text-slate-600">Upload a screenshot of the completed transfer and the email we should activate.</p>
             <div className="space-y-1">
               <label className="text-xs font-medium text-slate-600">Your email</label>
               <input type="email"
@@ -149,7 +162,7 @@ export function PaymentModal({ plan, onClose, userEmail = "" }: { plan: PlanInfo
                 Payment screenshot <span className="text-red-500">*</span>
               </label>
               <label className={`flex flex-col items-center justify-center w-full rounded-xl border-2 border-dashed cursor-pointer transition-colors ${screenshot ? "border-green-400 bg-green-50" : "border-slate-200 hover:border-blue-400 bg-slate-50"}`}>
-                <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+                <input type="file" accept="image/png,image/jpeg,image/webp" className="hidden" onChange={handleFileChange} />
                 {screenshotPreview ? (
                   <div className="w-full p-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}

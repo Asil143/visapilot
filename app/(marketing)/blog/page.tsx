@@ -7,10 +7,10 @@ const ARTICLES = [
   {
     slug: "h1b-2026-lottery-results",
     category: "H-1B",
-    badge: "Breaking",
-    badgeVariant: "destructive" as const,
-    title: "H-1B 2026 Lottery Results: USCIS Selects 85,000 Registrations",
-    excerpt: "USCIS announced the selection of 65,000 regular cap and 20,000 advanced-degree registrations for fiscal year 2026. Petitioners have until June 30 to file.",
+    badge: "Explainer",
+    badgeVariant: "secondary" as const,
+    title: "How the H-1B lottery works: caps, selection, and what comes next",
+    excerpt: "A walkthrough of the regular cap, the advanced-degree exemption, filing windows after selection, and alternatives if you are not selected. Verify current dates on USCIS.gov.",
     date: "May 27, 2026",
     readTime: "4 min read",
     author: "StatusClock Editorial",
@@ -19,10 +19,10 @@ const ARTICLES = [
   {
     slug: "uscis-processing-times-may-2026",
     category: "Processing Times",
-    badge: "Update",
-    badgeVariant: "info" as const,
-    title: "USCIS Processing Times Drop for I-765: OPT Now 3–5 Months at Potomac SC",
-    excerpt: "USCIS has significantly reduced EAD processing times following a backlog-clearing initiative. OPT applicants filing at Potomac Service Center are now seeing approval in as little as 75 days.",
+    badge: "Explainer",
+    badgeVariant: "secondary" as const,
+    title: "How to read USCIS processing times for I-765, I-129, and I-140",
+    excerpt: "Published ranges move often and differ by service center. Use them as a planning snapshot, then confirm on the official USCIS processing-times tool before you file.",
     date: "May 22, 2026",
     readTime: "3 min read",
     author: "StatusClock Editorial",
@@ -31,10 +31,10 @@ const ARTICLES = [
   {
     slug: "eb2-india-priority-date-movement",
     category: "Green Card",
-    badge: "Bulletin",
-    badgeVariant: "success" as const,
-    title: "EB-2 India Priority Date Advances 1 Month in June 2026 Visa Bulletin",
-    excerpt: "The June 2026 Visa Bulletin shows continued movement for EB-2 India, now at April 1, 2012. Analysts project dates could reach mid-2013 by end of fiscal year if retrogression is avoided.",
+    badge: "Explainer",
+    badgeVariant: "secondary" as const,
+    title: "How to read the Visa Bulletin: final action dates vs dates for filing",
+    excerpt: "Priority dates, chargeability, and why India and China EB-2/EB-3 move differently. For the current month's dates, use the live Visa Bulletin tracker — not a past snapshot.",
     date: "May 15, 2026",
     readTime: "5 min read",
     author: "StatusClock Editorial",
@@ -43,8 +43,8 @@ const ARTICLES = [
   {
     slug: "stem-opt-extension-new-rules",
     category: "OPT",
-    badge: "Policy",
-    badgeVariant: "warning" as const,
+    badge: "Explainer",
+    badgeVariant: "secondary" as const,
     title: "DHS Proposes New STEM OPT Rules: Extended Timeline and Broader STEM List",
     excerpt: "DHS released a proposed rulemaking that would expand the STEM OPT eligible field list and clarify training plan requirements under Form I-983. Public comment period open through July 15.",
     date: "May 10, 2026",
@@ -55,7 +55,7 @@ const ARTICLES = [
   {
     slug: "rfe-rates-specialty-occupation-2026",
     category: "H-1B",
-    badge: "Analysis",
+    badge: "Explainer",
     badgeVariant: "secondary" as const,
     title: "H-1B RFE Rates Hit 15-Year High: Specialty Occupation Scrutiny Intensifies",
     excerpt: "USCIS issued RFEs on 32% of H-1B petitions in Q1 2026, the highest rate since 2009. Specialty occupation and employer-employee relationship remain the top two issues across all service centers.",
@@ -67,7 +67,7 @@ const ARTICLES = [
   {
     slug: "naturalization-record-numbers-2026",
     category: "Citizenship",
-    badge: "Data",
+    badge: "Explainer",
     badgeVariant: "secondary" as const,
     title: "Record 1.2 Million Naturalizations in 2025 — Highest in Two Decades",
     excerpt: "USCIS reported processing a record 1.2 million naturalization applications in fiscal year 2025, aided by online filing expansion and increased N-400 officer capacity.",
@@ -91,9 +91,16 @@ export default function BlogPage() {
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
             <Newspaper className="h-6 w-6 text-primary" />
-            <h1 className="text-3xl font-bold">Immigration News & Policy</h1>
+            <h1 className="text-3xl font-bold">Immigration Explainers</h1>
           </div>
-          <p className="text-muted-foreground text-lg">Stay current with USCIS updates, Visa Bulletin changes, and immigration policy news</p>
+          <p className="text-muted-foreground text-lg">Background on H-1B, OPT, the visa bulletin, and processing times. These are explainers, not a live news desk.</p>
+        </div>
+
+        <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 leading-relaxed">
+          Dates and figures in these articles are snapshots from when they were written. For current visa bulletin dates see{" "}
+          <Link href="/visa-bulletin" className="font-semibold underline">Visa Bulletin</Link>
+          , and always confirm on{" "}
+          <a href="https://www.uscis.gov" target="_blank" rel="noopener noreferrer" className="font-semibold underline">USCIS.gov</a>.
         </div>
 
         {/* Category filter */}

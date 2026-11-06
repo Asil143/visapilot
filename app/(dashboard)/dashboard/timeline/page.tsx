@@ -206,7 +206,7 @@ function buildSmartActions(p: Profile): SmartAction[] {
   warn(daysUntil(p.h1b_expiry),
     [[90, "critical"], [150, "high"], [180, "medium"]],
     "File H-1B Extension with Employer",
-    (d) => `H-1B expires in ${d} days. Ask your employer to file an I-129 extension. USCIS can take 3–6 months.`
+    (d) => `H-1B expires in ${d} days. Ask your employer to file an I-129 extension and check USCIS's live processing-time tool.`
   );
 
   warn(daysUntil(p.opt_end_date),
@@ -266,8 +266,8 @@ function buildSmartActions(p: Profile): SmartAction[] {
   // H-1B cap registration window (Jan–Feb = upcoming, show as reminder)
   if (now.getMonth() <= 1) {
     out.push({
-      title: "H-1B Cap Registration Opens March 1",
-      description: "USCIS electronic registration runs March 1–20. Coordinate with your employer now if you need H-1B sponsorship this cycle.",
+      title: "H-1B Cap Registration Window",
+      description: "USCIS announces the electronic registration dates for each cycle. Coordinate with your employer early if you need H-1B sponsorship.",
       urgency: "info",
       link: "/dashboard/tools/checklists/h1b",
     });
@@ -309,15 +309,7 @@ function daysLeftBadge(days: number, category?: string) {
 
 // ─── Demo data for guests ─────────────────────────────────────────────────────
 
-const DEMO_PROFILE: Profile = {
-  visa_type: "STEM OPT",
-  ead_expiry: new Date(Date.now() + 62 * 86400000).toISOString().split("T")[0],
-  stem_opt_end_date: new Date(Date.now() + 62 * 86400000).toISOString().split("T")[0],
-  passport_expiry: new Date(Date.now() + 280 * 86400000).toISOString().split("T")[0],
-  i94_is_ds: true,
-  i20_end_date: new Date(Date.now() + 90 * 86400000).toISOString().split("T")[0],
-  h1b_start_date: new Date(Date.now() + 120 * 86400000).toISOString().split("T")[0],
-};
+
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -337,7 +329,7 @@ export default function TimelinePage() {
     if (isSignedIn === undefined) return;
     if (!isSignedIn) {
       Promise.resolve().then(() => {
-        setProfile(DEMO_PROFILE);
+        setProfile({});
         setLoading(false);
       });
       return;
@@ -392,7 +384,7 @@ export default function TimelinePage() {
   const hasProfile = keyDates.length > 0;
 
   return (
-    <div className="p-8 max-w-4xl">
+    <div className="p-4 md:p-8 max-w-4xl">
       {/* Header */}
       <div className="mb-8 flex items-start justify-between flex-wrap gap-4">
         <div>
@@ -414,8 +406,8 @@ export default function TimelinePage() {
               <Sparkles className="h-4 w-4 text-blue-600" />
             </div>
             <div>
-              <p className="font-semibold text-slate-800 text-sm">Preview with sample data</p>
-              <p className="text-xs text-slate-500 mt-0.5">Sign in to see your real dates and get personalized action items.</p>
+              <p className="font-semibold text-slate-800 text-sm">Sign in to build your timeline</p>
+              <p className="text-xs text-slate-500 mt-0.5">Add your visa dates and custom deadlines. This page is empty until you sign in — no sample data.</p>
             </div>
           </div>
           <SignUpButton mode="modal">

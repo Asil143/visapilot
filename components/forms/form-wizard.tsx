@@ -146,7 +146,7 @@ export function FormWizard({
       setCurrentQuestion(null);
       setMessages((prev) => [...prev, {
         role: "assistant",
-        content: `✅ All done! Form ${formNumber} is fully filled in.\n\nYour answers have been saved and sent to the StatusClock team — we'll prepare your form and reach out shortly.`,
+        content: `✅ Worksheet complete for Form ${formNumber}.\n\nYour answers are saved as a data sheet organized by Part and Item number. Download the official USCIS PDF and copy your answers into it — StatusClock does not file with USCIS or generate a filled official form.`,
       }]);
       fetch("/api/forms/submissions", {
         method: "POST",
@@ -199,7 +199,7 @@ export function FormWizard({
         <Button size="lg" onClick={startForm} className={`px-8 ${theme.button}`}>
           {prefillCount > 0
             ? `Continue ${formNumber} (${questions.length - prefillCount} questions left) →`
-            : `Start Filling ${formNumber} →`}
+            : `Start ${formNumber} worksheet →`}
         </Button>
       </div>
     );
@@ -227,7 +227,7 @@ export function FormWizard({
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 {m.role === "assistant" && (
-                  <div className={`w-7 h-7 rounded-full ${theme.avatarBg} text-white text-[10px] font-bold flex items-center justify-center mr-2 shrink-0 mt-0.5`}>VP</div>
+                  <div className={`w-7 h-7 rounded-full ${theme.avatarBg} text-white text-[10px] font-bold flex items-center justify-center mr-2 shrink-0 mt-0.5`}>SC</div>
                 )}
                 <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm whitespace-pre-wrap leading-relaxed ${
                   m.role === "user"
@@ -241,7 +241,7 @@ export function FormWizard({
             {isComplete && (
               <div className="flex justify-center pt-2">
                 <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-2 text-sm text-green-700 font-medium">
-                  <CheckCircle2 className="h-4 w-4" /> Form complete — we&apos;ll be in touch shortly
+                  <CheckCircle2 className="h-4 w-4" /> Worksheet saved — copy these answers into the official USCIS PDF
                 </div>
               </div>
             )}

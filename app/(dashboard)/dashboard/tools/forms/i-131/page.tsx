@@ -87,7 +87,7 @@ export default function I131Page() {
       color="sky"
       questions={I131_QUESTIONS}
       parts={I131_PARTS}
-      description="For Advance Parole, Refugee Travel Documents, and Re-entry Permits. Answer questions in plain English — we'll prepare your official form."
+      description="For Advance Parole, Refugee Travel Documents, and Re-entry Permits. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-131."
       subtext="Most commonly used by I-485 applicants who need to travel while their green card is pending."
       notices={[
         { tone: "amber", text: <><strong>Important:</strong> Do NOT travel outside the U.S. while your I-485 is pending without an approved Advance Parole. Doing so may abandon your green card application.</> },

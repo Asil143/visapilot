@@ -38,7 +38,14 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminUser())) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const parsed = paymentActionSchema.safeParse(await req.json());
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+  }
+
+  const parsed = paymentActionSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid action" }, { status: 400 });
   }
@@ -55,27 +62,32 @@ export async function PATCH(req: NextRequest) {
   if (fetchErr || !sub) return NextResponse.json({ error: "Submission not found" }, { status: 404 });
 
   const newStatus = action === "activate" ? "activated" : "rejected";
+  if (sub.status === newStatus) {
+    return NextResponse.json({ error: `Submission is already ${newStatus}.` }, { status: 409 });
+  }
 
-  await supabase
+  const { error: statusError } = await supabase
     .from("payment_submissions")
     .update({
       status: newStatus,
       activated_at: action === "activate" ? new Date().toISOString() : null,
     })
     .eq("id", id);
+  if (statusError) return NextResponse.json({ error: "Could not update the submission" }, { status: 500 });
 
   if (action === "activate") {
     const expiresAt = sub.plan_id === "all-access"
       ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()
       : null;
 
-    await supabase.from("user_plans").insert({
+    const { error: planError } = await supabase.from("user_plans").insert({
       clerk_id: sub.clerk_id ?? null,
       email: sub.email,
       plan_id: sub.plan_id,
       plan_name: sub.plan_name,
       expires_at: expiresAt,
     });
+    if (planError) return NextResponse.json({ error: "Payment activated, but the plan could not be provisioned." }, { status: 500 });
 
     try {
       await resend.emails.send({
@@ -88,7 +100,7 @@ export async function PATCH(req: NextRequest) {
           `Your ${sub.plan_name} has been activated on StatusClock.`,
           ``,
           `You now have full access to all features included in your plan.`,
-          `Log in at https://statusclock-one.vercel.app/dashboard to get started.`,
+          `Log in at ${process.env.NEXT_PUBLIC_APP_URL || "https://statusclock.com"}/dashboard to get started.`,
           ``,
           `Thank you for your purchase!`,
           `— StatusClock Team`,

@@ -7,7 +7,7 @@ export const opt: ChecklistDef = {
   emoji: "🎓",
   cardColor: "from-purple-500 to-violet-600",
   keyFacts: [
-    { label: "Filing Fee", value: "$520", sub: "Form I-765", icon: "DollarSign", color: "text-red-600" },
+    { label: "Filing Fee", value: "$470 / $520", sub: "I-765 online / paper", icon: "DollarSign", color: "text-red-600" },
     { label: "Processing", value: "3–5 mo", sub: "varies by center", icon: "Clock", color: "text-blue-600" },
     { label: "File Window", value: "90 days", sub: "before graduation", icon: "Calendar", color: "text-purple-600" },
     { label: "Max Unemployment", value: "90 days", sub: "standard OPT", icon: "AlertTriangle", color: "text-orange-600" },
@@ -79,7 +79,7 @@ export const opt: ChecklistDef = {
       subtitle: "Confirm payment and keep your receipt",
       icon: "DollarSign", colorText: "text-teal-700", colorBg: "bg-teal-50", colorBorder: "border-teal-200",
       items: [
-        { id: "fee1", text: "Pay the $520 Form I-765 filing fee", type: "fee", note: "Online: credit/debit card. Paper: money order or check payable to 'U.S. Department of Homeland Security'", link: { label: "Verify current fee at uscis.gov", url: "https://www.uscis.gov/i-765" } },
+        { id: "fee1", text: "Pay the Form I-765 filing fee: $470 online or $520 on paper", type: "fee", note: "Online: credit/debit card. Paper: money order or check payable to 'U.S. Department of Homeland Security'", link: { label: "Verify current fee at uscis.gov", url: "https://www.uscis.gov/i-765" } },
         { id: "fee2", text: "Submit the application and confirm you receive a submission confirmation", type: "action" },
         { id: "fee3", text: "Save/screenshot the USCIS receipt number (starts with IOE, EAC, WAC, etc.)", type: "action", note: "You will need this to track your case status" },
         { id: "fee4", text: "Save confirmation email from USCIS", type: "action" },
@@ -88,7 +88,7 @@ export const opt: ChecklistDef = {
     {
       id: "waiting", number: 6,
       title: "After Filing — While You Wait",
-      subtitle: "Processing typically takes 3–5 months",
+      subtitle: "Check USCIS live processing times for the current estimate",
       icon: "Clock", colorText: "text-yellow-700", colorBg: "bg-yellow-50", colorBorder: "border-yellow-200",
       alert: "Do NOT start working before you receive your EAD card AND the start date on the card has arrived. Working without authorization is a serious immigration violation.",
       items: [

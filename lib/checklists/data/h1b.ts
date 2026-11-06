@@ -7,7 +7,7 @@ export const h1b: ChecklistDef = {
   emoji: "🏢",
   cardColor: "from-blue-500 to-cyan-600",
   keyFacts: [
-    { label: "Lottery Window", value: "March", sub: "registration ~Mar 1–18", icon: "Calendar", color: "text-blue-600" },
+    { label: "Lottery Window", value: "March", sub: "exact dates vary by year", icon: "Calendar", color: "text-blue-600" },
     { label: "Employer Fees", value: "$3k–5k", sub: "I-129 + training + fraud", icon: "DollarSign", color: "text-red-600" },
     { label: "Premium Process", value: "$2,805", sub: "15 business days", icon: "Zap", color: "text-purple-600" },
     { label: "H-1B Start Date", value: "Oct 1", sub: "start of fiscal year", icon: "Clock", color: "text-green-600" },
@@ -28,14 +28,14 @@ export const h1b: ChecklistDef = {
     },
     {
       id: "lottery", number: 2,
-      title: "H-1B Lottery Registration (March)",
+      title: "H-1B Lottery Registration (annual window)",
       subtitle: "Employer registers on your behalf — selection is random",
       icon: "Trophy", colorText: "text-yellow-700", colorBg: "bg-yellow-50", colorBorder: "border-yellow-200",
       alert: "The lottery is the biggest bottleneck. Odds are roughly 20–40% per year. Plan for multiple attempts. Cap-exempt employers (universities, nonprofits) skip the lottery entirely.",
       items: [
         { id: "hl1", text: "Employer creates or logs into myUSCIS account (beneficiary does NOT file)", type: "online", link: { label: "myUSCIS for employers", url: "https://my.uscis.gov" } },
         { id: "hl2", text: "Employer submits your registration and pays $215 per registration (non-refundable)", type: "fee" },
-        { id: "hl3", text: "Registration window: approximately March 1–18 each year", type: "action" },
+        { id: "hl3", text: "Use the exact registration dates USCIS announces for the current cycle", type: "action" },
         { id: "hl4", text: "Wait for lottery selection notification (late March)", type: "action" },
         { id: "hl5", text: "If Selected: proceed to petition filing. If Not Selected: wait for additional selections or consider cap-exempt employers", type: "action" },
         { id: "hl6", text: "Master's cap: US master's degree holders get entered in both the regular (65k) and master's (20k) pools — double chance", note: "Regular cap: 65,000 slots. Master's cap: additional 20,000 for US master's holders", type: "action" },
@@ -80,10 +80,10 @@ export const h1b: ChecklistDef = {
       alert: "Only the employer files I-129 — not the employee. Filing window is April 1 to June 30 for October 1 start date.",
       items: [
         { id: "hf1", text: "Employer/attorney files Form I-129 with H Classification Supplement", type: "form" },
-        { id: "hf2", text: "Employer pays base filing fee: $730 (26+ employees) or $460 (1–25 employees)", type: "fee" },
-        { id: "hf3", text: "Employer pays ACWIA training fee: $1,500 (1–25 employees) or $3,000 (26+ employees)", type: "fee" },
-        { id: "hf4", text: "Employer pays asylum program fee: $600 (26+ employees, effective April 2024)", type: "fee" },
-        { id: "hf5", text: "Employer pays anti-fraud fee: $500 (all H-1B petitions)", type: "fee" },
+        { id: "hf2", text: "Employer pays I-129 base fee: $730 online for regular employers, $780 on paper, or $460 for small employers/nonprofits", type: "fee" },
+        { id: "hf3", text: "Employer pays ACWIA training fee: $750 (25 or fewer employees) or $1,500 (more than 25 employees), when applicable", type: "fee" },
+        { id: "hf4", text: "Employer pays asylum program fee when applicable: $300 for a small employer, $600 for a regular employer, or $0 for a nonprofit", type: "fee" },
+        { id: "hf5", text: "Employer pays the $500 fraud-prevention fee when required, such as an initial H-1B petition or a change of employer", type: "fee" },
         { id: "hf6", text: "Optional: Pay $2,805 for Premium Processing (I-797 decision in 15 business days)", type: "fee" },
         { id: "hf7", text: "USCIS issues I-797 Receipt Notice — save the receipt number", type: "doc" },
       ],
@@ -106,13 +106,13 @@ export const h1b: ChecklistDef = {
     {
       id: "capgap", number: 7,
       title: "Cap-Gap Protection (OPT → H-1B)",
-      subtitle: "If currently on OPT and switching to H-1B on Oct 1",
+      subtitle: "If currently on OPT and switching to an eligible cap-subject H-1B",
       icon: "Zap", colorText: "text-teal-700", colorBg: "bg-teal-50", colorBorder: "border-teal-200",
       items: [
-        { id: "hcg1", text: "If on OPT: cap-gap protects your work authorization from OPT expiry through September 30", type: "action" },
+        { id: "hcg1", text: "If eligible, cap-gap may extend F-1 status and work authorization; the current regulatory end date is generally April 1 of the requested H-1B fiscal year", type: "action" },
         { id: "hcg2", text: "Get updated I-20 from your DSO showing cap-gap extension status", type: "doc" },
         { id: "hcg3", text: "Keep working with old EAD + new I-20 as proof of cap-gap authorization", type: "action" },
-        { id: "hcg4", text: "Do NOT travel outside the US between OPT expiry and Oct 1 without advance parole", note: "Travel may break your cap-gap protection and you may not be able to return on OPT", type: "action" },
+        { id: "hcg4", text: "Before international travel during cap-gap, ask your DSO and an immigration attorney to review your documents and re-entry plan", note: "Travel can affect status, visa admission, and cap-gap eligibility; advance parole is not a substitute for the correct visa/status documents", type: "action" },
       ],
     },
     {

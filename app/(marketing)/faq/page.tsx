@@ -18,7 +18,7 @@ const faqs = [
       },
       {
         q: "Is StatusClock free to use?",
-        a: "Yes — core tools including all visa checklists, the OPT day counter, and the timeline tracker are free with no sign-up required. The AI Assistant and some premium features require a free account. We offer paid plans for advanced features like document generation and priority support.",
+        a: "Yes — visa checklists, the OPT day counter, fee calculator, and visa bulletin are free. The AI assistant needs a free account (10 questions per month). Paid packs unlock unlimited AI for a window and the RFE analyzer.",
       },
       {
         q: "Do I need to create an account?",
@@ -31,7 +31,7 @@ const faqs = [
     items: [
       {
         q: "When should I apply for OPT?",
-        a: "You can apply up to 90 days before your program end date and no later than 60 days after. USCIS recommends applying as early as possible since processing can take 3–5 months. Your EAD card must arrive before you can start working.",
+        a: "You can apply up to 90 days before your program end date, within 30 days of the DSO recommendation, and no later than 60 days after program completion. Check USCIS's live processing-time tool rather than relying on a fixed range. Your EAD card must arrive before you can start working.",
       },
       {
         q: "How long does OPT last?",
@@ -56,11 +56,11 @@ const faqs = [
     items: [
       {
         q: "What is the H-1B cap lottery?",
-        a: "Each year, USCIS receives far more H-1B petitions than the 85,000 visas available (65,000 regular cap + 20,000 for U.S. master's degree holders). USCIS runs a random lottery to select petitions. Registration typically opens in March for an October 1 start date.",
+        a: "Each year, USCIS receives more H-1B registrations than the 85,000 statutory cap numbers (65,000 regular cap + 20,000 for U.S. master's degree holders). USCIS uses beneficiary-centric selection, and it publishes the registration window dates for each cycle.",
       },
       {
         q: "Can I work while my H-1B is pending?",
-        a: "If you are currently on OPT or STEM OPT and your H-1B is filed before your OPT expires with an October 1 start date, you are covered under 'cap-gap' protection. This extends your OPT authorization until October 1, allowing you to keep working.",
+        a: "If you are on OPT or STEM OPT and an eligible H-1B change-of-status request is timely filed, cap-gap may extend F-1 status and employment authorization. Under the current rule, the extension generally ends April 1 of the requested H-1B fiscal year, or earlier if the request ends.",
       },
       {
         q: "What is an H-1B transfer?",
@@ -102,7 +102,7 @@ const faqs = [
     items: [
       {
         q: "How do I delete my account?",
-        a: "You can delete your account from your account settings page. All personal data will be permanently deleted within 30 days per our Privacy Policy. Paid subscriptions should be cancelled first to avoid future charges.",
+        a: "Email support@statusclock.com from the address on your account and we will delete your data. Event packs are one-time. If you have All-Access, tell us to stop renewing it.",
       },
       {
         q: "Can I get a refund?",
@@ -110,11 +110,11 @@ const faqs = [
       },
       {
         q: "Is my data secure?",
-        a: "Yes. We use TLS encryption in transit and AES-256 encryption at rest. Authentication is handled by Clerk, a dedicated security-focused auth provider. We never store credit card details on our servers — payments go through Stripe. See our Privacy Policy for full details.",
+        a: "We use TLS in transit and encryption at rest via our database provider. Sign-in is handled by Clerk. During beta, paid plans are activated after a manual payment screenshot — we do not store card numbers. See our Privacy Policy for details.",
       },
       {
         q: "Can I use StatusClock on mobile?",
-        a: "Yes — StatusClock is fully responsive and works on mobile browsers. A dedicated mobile app is on our roadmap.",
+        a: "Yes. The marketing site and dashboard work in a mobile browser. There is no native app yet.",
       },
     ],
   },

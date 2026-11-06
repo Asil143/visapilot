@@ -121,10 +121,10 @@ export default function I765Page() {
       color="purple"
       questions={I765_QUESTIONS}
       parts={I765_PARTS}
-      description="For F-1 students applying for OPT or STEM OPT extension. Answer questions in plain English — we'll fill the official form and send it to you."
+      description="For F-1 students applying for OPT or STEM OPT extension. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-765."
       subtext="Covers all sections of the official USCIS Form I-765 relevant to OPT and STEM OPT applicants."
       notices={[
-        { tone: "amber", text: <>⏱ File at least <strong>90 days before</strong> your OPT start date. USCIS currently takes 3–5 months to process.</> },
+        { tone: "amber", text: <>⏱ File within the OPT filing window and check the <a className="underline" href="https://egov.uscis.gov/processing-times/check" target="_blank" rel="noopener noreferrer">live USCIS processing-time tool</a> for the current estimate.</> },
       ]}
       normalize={normalize}
       prefill={prefill}

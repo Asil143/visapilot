@@ -119,7 +119,7 @@ export default function I485Page() {
       color="emerald"
       questions={I485_QUESTIONS}
       parts={I485_PARTS}
-      description="Adjust your status to lawful permanent resident (green card) from inside the United States. Answer questions in plain English — we'll prepare your official form and send it to you."
+      description="Adjust your status to lawful permanent resident (green card) from inside the United States. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-485."
       subtext="Covers Parts 1–3 and key background/eligibility questions from Part 8 of the official USCIS Form I-485 — the most commonly needed sections. Complex cases (criminal history, prior immigration violations) should always be reviewed by an immigration attorney."
       notices={[
         { tone: "amber", text: <><strong>Before you file:</strong> Form I-485 generally requires an underlying immigrant petition (Form I-130, I-140, or similar) to already be approved or filed concurrently. A biometrics appointment and a green card interview are typically also required.</> },

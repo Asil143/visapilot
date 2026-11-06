@@ -23,19 +23,19 @@ export default function NotFoundPage() {
 
       {/* Quick links */}
       <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-        <Link href="/dashboard">
-          <Button>
-            <Home className="mr-2 h-4 w-4" /> Dashboard
-          </Button>
-        </Link>
         <Link href="/">
-          <Button variant="outline">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Home
+          <Button>
+            <Home className="mr-2 h-4 w-4" /> Home
           </Button>
         </Link>
-        <Link href="/ai-assistant">
+        <Link href="/dashboard/tools/checklists">
           <Button variant="outline">
-            <MessageCircle className="mr-2 h-4 w-4" /> AI Assistant
+            <ArrowLeft className="mr-2 h-4 w-4" /> Free checklists
+          </Button>
+        </Link>
+        <Link href="/guides">
+          <Button variant="outline">
+            <MessageCircle className="mr-2 h-4 w-4" /> Visa guides
           </Button>
         </Link>
       </div>

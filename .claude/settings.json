@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(timeout 180 npx next build)",
+      "Bash(npx next *)",
+      "Bash(tee /tmp/build.log)",
+      "Bash(npm ls *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(python3 -c ' *)",
+      "Bash(git push *)",
+      "Bash(curl -sf http://localhost:3000)",
+      "Bash(command -v chromium-cli)",
+      "Bash(npx --no-install chromium-cli --version)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npx playwright *)",
+      "Bash(ls ~/Library/Caches/ms-playwright/ 2>&1 | head -10)",
+      "Read(//Users/asil/Library/Caches/ms-playwright/**)",
+      "Bash(node --experimental-vm-modules /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-splash.mjs)",
+      "Bash(find ~/.npm/_npx -maxdepth 4 -iname \"playwright\" -type d 2>/dev/null | head -5)",
+      "Read(//Users/asil/.npm/_npx/**)",
+      "Bash(NODE_PATH=/Users/asil/.npm/_npx/e41f203b7505f1fb/node_modules node --experimental-vm-modules /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-splash.mjs)",
+      "Bash(ls /Users/asil/.npm/_npx/e41f203b7505f1fb/)",
+      "Read(//Users/asil/.npm/_npx/e41f203b7505f1fb/**)",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/node_modules)",
+      "Bash(ln -sf /Users/asil/.npm/_npx/e41f203b7505f1fb/node_modules/playwright /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/node_modules/playwright)",
+      "Bash(ln -sf /Users/asil/.npm/_npx/e41f203b7505f1fb/node_modules/playwright-core /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/node_modules/playwright-core)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-splash.mjs)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-splash-v2.mjs)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-telugu.mjs)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-telugu2.mjs)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-guides.mjs)",
+      "Bash(node /private/tmp/claude-501/-Users-asil-projects-visapilot/43f8b8d2-7d96-42a8-9839-20c3ca2bdcf9/scratchpad/check-forms.mjs)"
+    ]
+  }
+}

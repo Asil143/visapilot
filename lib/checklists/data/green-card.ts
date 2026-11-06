@@ -7,10 +7,10 @@ export const greenCard: ChecklistDef = {
   emoji: "🌿",
   cardColor: "from-emerald-500 to-green-600",
   keyFacts: [
-    { label: "I-140 Fee", value: "$700", sub: "immigrant petition", icon: "DollarSign", color: "text-red-600" },
-    { label: "I-485 Fee", value: "$1,440", sub: "includes biometrics", icon: "DollarSign", color: "text-orange-600" },
+    { label: "I-140 Fee", value: "$715+", sub: "plus applicable asylum program fee", icon: "DollarSign", color: "text-red-600" },
+    { label: "I-485 Fee", value: "$1,440", sub: "standard adult filing", icon: "DollarSign", color: "text-orange-600" },
     { label: "Priority Date", value: "Varies", sub: "India EB-2 backlog: years", icon: "Clock", color: "text-blue-600" },
-    { label: "PERM Time", value: "6–18 mo", sub: "labor certification", icon: "Info", color: "text-purple-600" },
+    { label: "PERM Time", value: "Varies", sub: "check DOL FLAG", icon: "Info", color: "text-purple-600" },
   ],
   phases: [
     {
@@ -38,7 +38,7 @@ export const greenCard: ChecklistDef = {
         { id: "gp1", text: "Employer conducts recruitment campaign (job ads, SWA job order, etc.) for 30+ days", type: "action" },
         { id: "gp2", text: "Employer documents all applicants reviewed and reasons for rejection", type: "doc" },
         { id: "gp3", text: "Employer files ETA Form 9089 with DOL via FLAG portal", type: "form", link: { label: "DOL FLAG portal", url: "https://flag.dol.gov" } },
-        { id: "gp4", text: "Wait for PERM certification (regular processing: 6–18 months; no fee for PERM filing)", type: "action" },
+        { id: "gp4", text: "Wait for PERM certification; processing changes, so check the DOL FLAG processing-time information (there is no government fee for the PERM filing)", type: "action" },
         { id: "gp5", text: "Receive certified ETA-9089 from DOL", type: "doc" },
         { id: "gp6", text: "PERM certification date becomes your priority date (if earlier than I-140 filing)", type: "action" },
       ],
@@ -50,7 +50,7 @@ export const greenCard: ChecklistDef = {
       icon: "Send", colorText: "text-orange-700", colorBg: "bg-orange-50", colorBorder: "border-orange-200",
       items: [
         { id: "gi1", text: "File Form I-140 with USCIS — employer files for EB-1B/1C/2/3; self for EB-1A/NIW", type: "form" },
-        { id: "gi2", text: "Pay I-140 filing fee: $700", type: "fee" },
+        { id: "gi2", text: "Pay I-140 filing fee: $715, plus applicable asylum program fee ($600 regular / $300 small employer or self-petitioner / $0 nonprofit)", type: "fee" },
         { id: "gi3", text: "Optional: Pay $2,805 for premium processing (15 business days)", type: "fee" },
         { id: "gi4", text: "Include: PERM (if required), degree/credentials, evidence of qualifications, company financials", type: "doc" },
         { id: "gi5", text: "Receive I-140 approval — priority date is now locked even if you change employers", note: "Approved I-140 gives you H-1B extensions beyond 6 years and H-4 EAD eligibility for spouse", type: "doc" },
@@ -79,12 +79,12 @@ export const greenCard: ChecklistDef = {
       icon: "FileText", colorText: "text-teal-700", colorBg: "bg-teal-50", colorBorder: "border-teal-200",
       items: [
         { id: "ga1", text: "File Form I-485 with USCIS when your priority date is current", type: "form" },
-        { id: "ga2", text: "Pay I-485 filing fee: $1,440 (includes biometric services fee)", type: "fee" },
-        { id: "ga3", text: "File Form I-765 (EAD) concurrently — fee waived when filed with I-485", type: "form" },
-        { id: "ga4", text: "File Form I-131 (Advance Parole — travel document) concurrently — fee waived with I-485", type: "form" },
+        { id: "ga2", text: "Pay I-485 filing fee: $1,440 for the standard adult filing; there is no separate biometric fee", type: "fee" },
+        { id: "ga3", text: "File Form I-765 (EAD) concurrently if needed — current fee is $260 when tied to a pending I-485 filed with a fee on or after April 1, 2024", type: "form" },
+        { id: "ga4", text: "File Form I-131 (Advance Parole) concurrently if needed — current fee is $630; verify the filing category", type: "form" },
         { id: "ga5", text: "Include: I-140 approval notice, birth certificate, passport, I-94, medical exam (Form I-693 by civil surgeon)", type: "doc" },
         { id: "ga6", text: "Schedule and complete civil surgeon medical exam (Form I-693)", note: "Must be completed by USCIS-designated civil surgeon — results valid for 2 years", type: "action", link: { label: "Find civil surgeon", url: "https://my.uscis.gov/findadoctor" } },
-        { id: "ga7", text: "DO NOT leave the US without Advance Parole document — it cancels your I-485", type: "action" },
+        { id: "ga7", text: "Before leaving the US while I-485 is pending, confirm you have the right travel document or a status-based exception; departure without Advance Parole can be treated as abandonment", type: "action" },
       ],
     },
     {
@@ -97,7 +97,7 @@ export const greenCard: ChecklistDef = {
         { id: "gb2", text: "Receive combo card: EAD + Advance Parole (work and travel while I-485 is pending)", type: "doc" },
         { id: "gb3", text: "Respond to any RFE or NOID (Notice of Intent to Deny) promptly", type: "action" },
         { id: "gb4", text: "If interview is scheduled: attend USCIS field office interview with all original documents", type: "action" },
-        { id: "gb5", text: "Processing: typically 12–30 months (varies significantly by category and service center)", type: "action" },
+        { id: "gb5", text: "Check the USCIS live processing-time tool for your form, category, and field office; estimates vary significantly", type: "action", link: { label: "USCIS processing times", url: "https://egov.uscis.gov/processing-times/check" } },
       ],
     },
     {

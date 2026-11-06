@@ -8,24 +8,25 @@ import {
   Users, ChevronDown, Bot, Calendar, Lock,
 } from "lucide-react";
 import { PaymentModal, type PlanInfo } from "@/components/payments/PaymentModal";
+import { PLAN_CATALOG } from "@/lib/plans";
 
 const eventPacks = [
   {
     id: "h1b",
     name: "H-1B Season Pack",
-    price: 29,
+    price: PLAN_CATALOG.h1b.price,
     icon: "🎯",
     color: "#eff6ff",
     border: "#bfdbfe",
     textColor: "#1d4ed8",
     accent: "#2563eb",
-    duration: "Active Mar–Jun",
+    duration: "Cap season Mar–Jun",
     badge: "Most purchased",
     description: "Full support during H-1B cap registration season",
     features: [
       "H-1B registration step-by-step checklist",
       "Cap-gap & OPT bridge guide",
-      "Lottery odds & employer sponsorship lookup",
+      "H-1B employer lookup snapshot",
       "Unlimited AI questions for 90 days",
       "RFE response templates",
       "Deadline alerts during cap season",
@@ -34,7 +35,7 @@ const eventPacks = [
   {
     id: "opt",
     name: "OPT / STEM OPT Pack",
-    price: 19,
+    price: PLAN_CATALOG.opt.price,
     icon: "📋",
     color: "#f0fdf4",
     border: "#86efac",
@@ -55,7 +56,7 @@ const eventPacks = [
   {
     id: "rfe",
     name: "RFE Response Pack",
-    price: 39,
+    price: PLAN_CATALOG.rfe.price,
     icon: "⚡",
     color: "#fff7ed",
     border: "#fed7aa",
@@ -69,14 +70,14 @@ const eventPacks = [
       "Evidence checklist by RFE type",
       "Draft response frameworks per issue",
       "Unlimited AI questions for 87 days",
-      "Attorney review marketplace access",
+      "Attorney inquiry referral",
       "Response letter templates",
     ],
   },
   {
     id: "greencard",
     name: "Green Card Prep Pack",
-    price: 49,
+    price: PLAN_CATALOG.greencard.price,
     icon: "🌿",
     color: "#faf5ff",
     border: "#d8b4fe",
@@ -99,7 +100,7 @@ const eventPacks = [
 const freeFeatures = [
   "All visa checklists (12 types)",
   "OPT day counter & timeline tracker",
-  "H-1B employer lookup (E-Verify)",
+  "H-1B employer lookup snapshot",
   "Visa comparison tool",
   "Immigration glossary (60+ terms)",
   "Visa bulletin tracker",
@@ -111,13 +112,11 @@ const allAccessFeatures = [
   "Everything in Free — forever",
   "All 4 Event Packs included",
   "Unlimited AI Assistant questions",
-  "USCIS case auto-monitoring",
-  "SMS + email deadline alerts",
-  "RFE analyzer (Claude API)",
-  "Document vault (AES-256 encrypted)",
-  "AI document analyzer",
+  "Email deadline alerts",
+  "RFE analyzer",
+  "Document vault",
   "Green card stage tracker",
-  "Priority attorney matching",
+  "Attorney inquiry matching",
   "Cancel anytime",
 ];
 
@@ -144,11 +143,15 @@ const faqs = [
   },
   {
     q: "Do you take a cut from attorney fees?",
-    a: "Yes — if you hire through StatusClock, we charge a 12% platform fee, which is already built into the prices attorneys list. No surprise costs to you.",
+    a: "Not yet. The lawyers page is an inquiry form — we forward your request and try to connect you with a licensed attorney. There is no marketplace fee until we list named attorneys with published prices.",
+  },
+  {
+    q: "How do I pay?",
+    a: "During beta, paid plans are activated manually after you send payment (Cash App, PayPal, Venmo, Chime, or Zelle) and upload a screenshot. We review submissions and unlock the plan, usually within a few hours.",
   },
   {
     q: "Is my data private?",
-    a: "Yes. Documents are AES-256 encrypted. We never sell your data. See our Privacy Policy for full details.",
+    a: "We never sell your data. Files are stored with encryption at rest via our database provider. See our Privacy Policy for full details.",
   },
 ];
 
@@ -160,24 +163,24 @@ export default function PricingPage() {
   const dest = (path: string) => isSignedIn ? "/dashboard" : path;
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="sc-pricing bg-background min-h-screen">
       {selectedPlan && <PaymentModal plan={selectedPlan} onClose={() => setSelectedPlan(null)} userEmail={userEmail} />}
 
       {/* Hero */}
-      <section className="py-20 text-center border-b bg-gradient-to-b from-slate-50 to-white">
+      <section className="sc-pricing-hero py-20 text-center border-b bg-secondary/50">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-5 bg-blue-50 text-blue-700 border border-blue-100">
             <Zap className="h-4 w-4" />
             Pay for what you need — nothing more
           </div>
           <h1 className="text-5xl font-bold text-slate-900 mb-5 leading-tight">
-            Pricing that fits<br />your immigration stage
+            Support for<br /><em>your next chapter.</em>
           </h1>
           <p className="text-lg text-slate-500 max-w-xl mx-auto mb-4 leading-7">
             Start free. Buy a pack when a big event hits.
             Go All-Access when your journey gets complex.
           </p>
-          <p className="text-sm text-slate-400">No credit card for free tier · Packs never expire · Cancel anytime</p>
+          <p className="text-sm text-slate-400">Free tools need no card · Most packs never expire · All-Access cancels anytime</p>
         </div>
       </section>
 
@@ -303,7 +306,7 @@ export default function PricingPage() {
                   <div className="text-right shrink-0">
                     <div className="text-5xl font-bold text-white">$99</div>
                     <div className="text-slate-400 text-sm mt-1">per year · ~$8/mo</div>
-                    <div className="text-xs text-green-400 mt-1 font-medium">Save $100+ vs buying separately</div>
+                    <div className="text-xs text-green-400 mt-1 font-medium">Save $37 vs buying all 4 packs</div>
                   </div>
                 </div>
 
@@ -318,7 +321,7 @@ export default function PricingPage() {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
-                    onClick={() => setSelectedPlan({ name: "All-Access Plan", price: 99, id: "all-access" })}
+                    onClick={() => setSelectedPlan({ name: PLAN_CATALOG["all-access"].name, price: PLAN_CATALOG["all-access"].price, id: "all-access" })}
                     className="flex-1 text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-colors"
                   >
                     Get All-Access — $99/year
@@ -419,13 +422,12 @@ export default function PricingPage() {
                   ["H-1B employer lookup", true, true, true],
                   ["Visa comparison & glossary", true, true, true],
                   ["AI Assistant", "10/mo", "Unlimited (pack duration)", "Unlimited"],
-                  ["Checklist for specific event", false, true, true],
-                  ["USCIS case monitoring", false, false, true],
-                  ["Deadline alerts (SMS + email)", false, false, true],
-                  ["RFE analyzer (Claude API)", false, "RFE Pack only", true],
-                  ["Document vault (encrypted)", false, false, true],
-                  ["Green card stage tracker", false, false, true],
-                  ["Priority attorney matching", false, false, true],
+                  ["Unlimited AI during pack window", false, true, true],
+                  ["Email deadline alerts", true, true, true],
+                  ["RFE analyzer", false, "RFE Pack only", true],
+                  ["Document vault", true, true, true],
+                  ["Green card stage tracker", true, true, true],
+                  ["Attorney inquiry form", true, true, true],
                 ].map(([feature, free, pack, allAccess], i) => (
                   <tr key={String(feature)} className={`border-b border-slate-100 ${i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}`}>
                     <td className="p-4 text-sm text-slate-600 border-r border-slate-200">{feature}</td>
@@ -453,12 +455,12 @@ export default function PricingPage() {
           <div className="flex-1 text-center sm:text-left">
             <p className="font-bold text-white text-lg">Need a real attorney?</p>
             <p className="text-sm mt-1 text-slate-400">
-              Book verified immigration attorneys with fixed, transparent fees —
-              H-1B filing, NIW petition, RFE response, and more. No hidden charges.
+              StatusClock is not a law firm. Submit an inquiry and we will try to connect you
+              with a licensed immigration attorney. Initial consult details are set by the attorney.
             </p>
           </div>
           <Link href="/lawyers" className="shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold bg-blue-600 text-white hover:bg-blue-500 transition-colors">
-            Browse Attorneys <ArrowRight className="inline ml-1 h-4 w-4" />
+            Request a referral <ArrowRight className="inline ml-1 h-4 w-4" />
           </Link>
         </div>
 
@@ -488,7 +490,7 @@ export default function PricingPage() {
         {/* Trust signals */}
         <div className="mb-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {[
-            { icon: Shield, label: "AES-256 encrypted", sub: "Documents & profile" },
+            { icon: Shield, label: "Encrypted at rest", sub: "Documents & profile" },
             { icon: Lock, label: "No data selling", sub: "Ever, to anyone" },
             { icon: Bot, label: "Real Claude AI", sub: "Anthropic-powered" },
             { icon: Calendar, label: "Cancel anytime", sub: "No lock-in" },

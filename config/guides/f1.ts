@@ -7,9 +7,9 @@ export const F1_GUIDE: Guide = {
   subtitle: "Everything you need to maintain status and navigate OPT",
   overview:
     "The F-1 visa is a nonimmigrant student visa that allows foreign nationals to study at US academic institutions. Maintaining your F-1 status requires following strict rules set by SEVP (Student and Exchange Visitor Program) and your DSO (Designated School Official).",
-  processing_times: "Consular processing: 2–8 weeks. SEVIS fee must be paid 3 business days before interview.",
-  fees: "SEVIS fee: $350. Visa application fee (MRV): $185.",
-  last_updated: "2025-05-01",
+  processing_times: "Visa appointment and issuance times vary by embassy or consulate; check the State Department's current wait-time tool.",
+  fees: "I-901 SEVIS fee: $350 for F/M students. F visa application fee (MRV): $185; reciprocity or issuance fees may also apply.",
+  last_updated: "November 2026",
   steps: [
     {
       title: "Get Accepted & Receive I-20",
@@ -106,7 +106,7 @@ export const F1_GUIDE: Guide = {
       action_items: [
         "Confirm your official program completion date with your DSO",
         "Decide whether to apply for Optional Practical Training (OPT), start a new degree program, or change status",
-        "File Form I-765 for OPT no earlier than 90 days before and no later than 60 days after your program end date",
+        "File Form I-765 for OPT no earlier than 90 days before your program end date, within 30 days of the DSO recommendation, and no later than 60 days after program completion",
         "Track your 60-day grace period if you're not continuing study or starting approved employment",
         "Ask your DSO to update your SEVIS record and I-20 to reflect your post-completion plan",
         "Keep copies of your final I-20, diploma or transcript, and OPT EAD once issued",

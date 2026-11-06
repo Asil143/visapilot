@@ -61,10 +61,10 @@ export const l1: ChecklistDef = {
       icon: "Send", colorText: "text-teal-700", colorBg: "bg-teal-50", colorBorder: "border-teal-200",
       items: [
         { id: "l1p1", text: "Employer/attorney files Form I-129 with L Classification Supplement", type: "form" },
-        { id: "l1p2", text: "Pay base I-129 filing fee: $730", type: "fee" },
+        { id: "l1p2", text: "Pay I-129 fee: $1,385 for a regular employer or $695 for a small employer/nonprofit, plus applicable fees", type: "fee" },
         { id: "l1p3", text: "Pay anti-fraud fee: $500 (all L-1 petitions)", type: "fee" },
         { id: "l1p4", text: "Optional: Pay $2,805 Premium Processing for 15 business day decision", type: "fee" },
-        { id: "l1p5", text: "Standard processing: 3–5 months", type: "action" },
+        { id: "l1p5", text: "Check USCIS live processing times for the current estimate", type: "action" },
         { id: "l1p6", text: "Receive I-797 approval notice — initial period: 3 years (1 year for new office)", type: "doc" },
       ],
     },

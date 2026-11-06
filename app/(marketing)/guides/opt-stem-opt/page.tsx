@@ -13,12 +13,12 @@ export const metadata = {
 export default function OPTGuidePage() {
   const guide = OPT_GUIDE;
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-purple-50 to-white py-16">
+    <div className="sc-guide-article min-h-screen bg-background">
+      <div className="sc-guide-hero"><div className="sc-guide-breadcrumb"><Link href="/guides">The guide library</Link><span>/</span><span>FIELD GUIDE 02</span></div>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">💼</span>
+
               <Badge className="bg-purple-100 text-purple-700 border-purple-200">OPT / STEM OPT</Badge>
             </div>
             <h1 className="text-4xl font-bold tracking-tight">{guide.title}</h1>

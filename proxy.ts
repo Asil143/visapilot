@@ -1,35 +1,29 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/guides(.*)",
-  "/visa-comparison(.*)",
-  "/glossary(.*)",
-  "/events(.*)",
-  "/lawyers(.*)",
-  "/pricing(.*)",
-  "/blog(.*)",
-  "/success-stories(.*)",
-  "/employer-lookup(.*)",
-  "/visa-bulletin(.*)",
-  "/preview(.*)",
-  "/privacy(.*)",
-  "/terms(.*)",
-  "/about(.*)",
-  "/contact(.*)",
-  "/faq(.*)",
-  "/jobs(.*)",
-  "/community(.*)",
-  // Tools & dashboard accessible without login (preview mode)
-  "/ai-assistant(.*)",
-  "/rfe-assistant(.*)",
-  "/dashboard(.*)",
+// Invert the previous allowlist: unknown pages must stay public so Next.js
+// can render not-found.tsx instead of a Clerk sign-in wall. Guest tools
+// (dashboard, checklists, AI UI) stay public; APIs enforce auth themselves.
+const isProtectedRoute = createRouteMatcher([
+  "/settings(.*)",
+  "/onboarding(.*)",
+  "/admin(.*)",
+  "/api/admin(.*)",
+  "/api/chat(.*)",
+  "/api/documents(.*)",
+  "/api/profile(.*)",
+  "/api/reminders(.*)",
+  "/api/deadlines(.*)",
+  "/api/forms(.*)",
+  "/api/rfe-analyze(.*)",
+  "/api/user(.*)",
+  "/api/visa-cases(.*)",
+  "/api/cases/check-status(.*)",
+  "/api/cases/live-status(.*)",
+  "/api/opt-tracker(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
+  if (isProtectedRoute(req)) {
     await auth.protect();
   }
 });

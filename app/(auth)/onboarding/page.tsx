@@ -70,6 +70,23 @@ export default function OnboardingPage() {
     return Math.ceil((new Date(d).getTime() - now) / 86400000);
   }
 
+  function checklistForVisa(visa: string) {
+    const map: Record<string, string> = {
+      "F-1 Student": "/dashboard/tools/checklists/opt",
+      OPT: "/dashboard/tools/checklists/opt",
+      "STEM OPT": "/dashboard/tools/checklists/stem-opt",
+      "H-1B": "/dashboard/tools/checklists/h1b",
+      "H-4": "/dashboard/tools/checklists/h4",
+      "J-1": "/dashboard/tools/checklists/j1",
+      "L-1A": "/dashboard/tools/checklists/l1",
+      "O-1A": "/dashboard/tools/checklists/o1",
+      "Green Card (Pending I-485)": "/dashboard/tools/checklists/green-card",
+      "Green Card (LPR)": "/dashboard/tools/checklists/green-card",
+      TN: "/dashboard/tools/checklists/tn",
+    };
+    return map[visa] ?? "/dashboard/tools/checklists";
+  }
+
   async function finish() {
     setLoading(true);
     try {
@@ -104,7 +121,7 @@ export default function OnboardingPage() {
   ].filter(a => a.days !== null && a.days > 0);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #f5f3ff 100%)" }}>
+    <div className="sc-legacy-page min-h-screen flex items-center justify-center p-4" style={{ background: "linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #f5f3ff 100%)" }}>
       <div className="w-full max-w-2xl">
 
         {/* Logo */}
@@ -365,7 +382,7 @@ export default function OnboardingPage() {
           {step < 5 && (
             <div className="px-8 pb-6 flex items-center justify-between">
               <button
-                onClick={() => step > 1 ? setStep(step - 1) : router.push("/dashboard")}
+                onClick={() => step > 1 ? setStep(step - 1) : router.push(checklistForVisa(visaType))}
                 className="flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-xl transition-all"
                 style={{ color: "#64748b" }}
               >

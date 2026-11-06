@@ -12,8 +12,8 @@ export const metadata = {
 
 export default function FamilyGreenCardGuidePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-rose-50 to-white py-16">
+    <div className="sc-guide-article min-h-screen bg-background">
+      <div className="sc-guide-hero"><div className="sc-guide-breadcrumb"><Link href="/guides">The guide library</Link><span>/</span><span>FIELD GUIDE 05</span></div>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">

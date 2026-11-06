@@ -15,7 +15,7 @@ export const H1B_STEPS: H1BStep[] = [
   {
     title: "H-1B Cap Registration (March each year)",
     description: "For cap-subject H-1Bs, employers must register online before the full petition is filed. USCIS conducts a lottery if registrations exceed the cap.",
-    items: ["Registration window: typically March 1–18", "Registration fee: $215 per beneficiary", "Selection is now beneficiary-centric — you're entered once no matter how many employers register you, so duplicate registrations no longer improve your odds", "Wait for lottery selection notice", "Only selected registrants can file full petition"],
+    items: ["Registration dates vary; USCIS announces the exact window each year", "Registration fee: $215 per beneficiary", "Selection is beneficiary-centric — you're entered once no matter how many employers register you, so duplicate registrations no longer improve your odds", "Wait for lottery selection notice", "Only selected registrants can file a full petition"],
     link: "https://www.uscis.gov/h1b",
   },
   {
@@ -26,13 +26,13 @@ export const H1B_STEPS: H1BStep[] = [
   {
     title: "File Form I-129 (Petition for Nonimmigrant Worker)",
     description: "If selected in the lottery, your employer files the full H-1B petition.",
-    items: ["File I-129 with all required evidence", "Include specialty occupation evidence, degree evaluation if foreign", "Pay filing fees ($730 base + ACWIA + fraud prevention fees)", "Optional: Premium Processing ($2,805) for a faster decision"],
+    items: ["File I-129 with all required evidence", "Include specialty occupation evidence and a degree evaluation if applicable", "Pay the current I-129 fee plus any applicable ACWIA, asylum program, fraud-prevention, and employer-specific fees", "Optional: Premium Processing ($2,805) for a faster decision"],
     link: "https://www.uscis.gov/i-129",
   },
   {
     title: "Premium Processing: Is It Worth It?",
-    description: "Premium Processing is an optional add-on that guarantees USCIS acts on your petition within 15 calendar days — it doesn't guarantee approval.",
-    items: ["Current fee: $2,805, paid on top of standard filing fees", "USCIS must issue an approval, denial, or Request for Evidence (RFE) within 15 calendar days, or refund the fee", "Can be requested when the petition is filed, or upgraded later while the case is pending", "Worth it if your start date is close, you need to plan travel, or you're responding to an RFE and want a fast turnaround on the response", "Not available during the initial cap registration step — only once the full I-129 petition is filed"],
+    description: "Premium Processing is an optional add-on that requires USCIS action within 15 business days for eligible H-1B petitions; it does not guarantee approval.",
+    items: ["Current fee: $2,805, paid on top of standard filing fees", "USCIS must take qualifying action within 15 business days, or refund the fee", "Can be requested when the petition is filed, or upgraded later while the case is pending", "Not available during the initial cap registration step — only once the full I-129 petition is filed"],
   },
   {
     title: "H-1B Approval and Start Date",
@@ -54,7 +54,7 @@ export const H1B_STEPS: H1BStep[] = [
 export const H1B_FAQ: { q: string; a: string }[] = [
   { q: "What is the H-1B annual cap?", a: "65,000 visas per year, plus 20,000 additional for US master's degree holders. Some employers (universities, nonprofits, government research) are cap-exempt." },
   { q: "Can I work for multiple H-1B employers?", a: "Yes — you can work for multiple H-1B employers concurrently. Each employer must file a separate H-1B petition. You cannot work for an employer who has not filed on your behalf." },
-  { q: "What is cap-gap?", a: "If you're on OPT and your H-1B is approved for October 1, cap-gap automatically extends your OPT and F-1 status from the OPT expiry date through September 30 (or until H-1B starts)." },
+  { q: "What is cap-gap?", a: "For an eligible, timely filed H-1B change-of-status request, cap-gap can automatically extend F-1 status and employment authorization. Under the current rule, the extension generally ends April 1 of the fiscal year for which H-1B status is requested, or earlier if the request is denied, withdrawn, or otherwise ends." },
   { q: "Can I travel while my H-1B extension is pending?", a: "You can travel if your current H-1B is still valid. If it expires while you're abroad, you need a valid H-1B visa stamp to re-enter. Consult an attorney before traveling with a pending extension." },
   { q: "What happens if I'm laid off on H-1B?", a: "You have a grace period of 60 days (or until your H-1B end date, whichever is shorter) to find a new employer who will file an H-1B transfer, change to another status, or depart the US." },
   { q: "Can I work part-time on an H-1B?", a: "Yes. Your employer files the LCA and I-129 petition specifying part-time hours, and the wage offered must still meet the prevailing or actual wage requirement for that reduced schedule. You're limited to the specific hours and employer listed on the approved petition." },

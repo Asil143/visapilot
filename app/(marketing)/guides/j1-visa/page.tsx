@@ -8,13 +8,13 @@ import { J1_SECTIONS as SECTIONS, J1_FAQS as FAQS } from "@/config/guides";
 
 export default function J1GuidePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="sc-guide-article min-h-screen bg-background">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-orange-50 to-orange-100 border-b">
+      <div className="sc-guide-hero"><div className="sc-guide-breadcrumb"><Link href="/guides">The guide library</Link><span>/</span><span>FIELD GUIDE 06</span></div>
         <div className="max-w-4xl mx-auto px-6 py-14">
           <Badge variant="secondary" className="mb-4">Visa Guide</Badge>
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-4xl">🌍</span>
+
             <h1 className="text-4xl font-bold">J-1 Exchange Visitor Visa</h1>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl leading-6">

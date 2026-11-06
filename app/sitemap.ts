@@ -1,45 +1,41 @@
 import { MetadataRoute } from "next";
-
-const BASE_URL = "https://statusclock.com";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
-  const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
-    { url: `${BASE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-
-    // Guides
-    { url: `${BASE_URL}/guides`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/f1-visa`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/opt-stem-opt`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/h1b-visa`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/green-card`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/family-green-card`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/guides/j1-visa`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/guides/travel-advisory`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-
-    // Tools (public)
-    { url: `${BASE_URL}/dashboard/tools/checklists`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/dashboard/tools/opt-tracker`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/dashboard/timeline`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/ai-assistant`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-
-    // Resources
-    { url: `${BASE_URL}/visa-bulletin`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/visa-comparison`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/glossary`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/employer-lookup`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
-    { url: `${BASE_URL}/lawyers`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE_URL}/success-stories`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/events`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+  const pages: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number; lastModified: string }> = [
+    { path: "/", changeFrequency: "weekly", priority: 1.0, lastModified: "2026-10-13" },
+    { path: "/about", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-10-13" },
+    { path: "/contact", changeFrequency: "monthly", priority: 0.5, lastModified: "2026-10-13" },
+    { path: "/faq", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-13" },
+    { path: "/pricing", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-13" },
+    { path: "/privacy", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-10-13" },
+    { path: "/terms", changeFrequency: "yearly", priority: 0.3, lastModified: "2026-10-13" },
+    { path: "/guides", changeFrequency: "weekly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/f1-visa", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/opt-stem-opt", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/h1b-visa", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/green-card", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/family-green-card", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/guides/j1-visa", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-13" },
+    { path: "/guides/travel-advisory", changeFrequency: "weekly", priority: 0.8, lastModified: "2026-10-13" },
+    { path: "/visa-finder", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-11-03" },
+    { path: "/dashboard/tools/checklists", changeFrequency: "monthly", priority: 0.9, lastModified: "2026-10-13" },
+    { path: "/dashboard/tools/opt-tracker", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-13" },
+    { path: "/dashboard/tools/fee-calculator", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-10-13" },
+    { path: "/visa-bulletin", changeFrequency: "monthly", priority: 0.8, lastModified: "2026-10-01" },
+    { path: "/visa-comparison", changeFrequency: "monthly", priority: 0.7, lastModified: "2026-10-13" },
+    { path: "/glossary", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-10-13" },
+    { path: "/employer-lookup", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-10-13" },
+    { path: "/lawyers", changeFrequency: "monthly", priority: 0.6, lastModified: "2026-10-13" },
+    { path: "/blog", changeFrequency: "monthly", priority: 0.5, lastModified: "2026-10-13" },
+    { path: "/events", changeFrequency: "monthly", priority: 0.4, lastModified: "2026-11-03" },
+    { path: "/success-stories", changeFrequency: "monthly", priority: 0.4, lastModified: "2026-11-03" },
   ];
 
-  return staticPages;
+  return pages.map((page) => ({
+    url: `${SITE_URL}${page.path}`,
+    lastModified: new Date(page.lastModified),
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+  }));
 }

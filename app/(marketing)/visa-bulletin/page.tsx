@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, ArrowRight, Bell, TrendingUp, Info, Bot } from "lucide-react";
+import { BarChart3, ArrowRight, Bell, TrendingUp, TrendingDown, Info, Bot } from "lucide-react";
+
+export const metadata = {
+  title: "Visa Bulletin — November 2026",
+  description: "Employment-based final action dates from the November 2026 Department of State Visa Bulletin, plus a priority-date tracker.",
+};
 import { BULLETIN_MONTH, FINAL_ACTION, COUNTRY_COLS } from "@/lib/visa-bulletin";
 
 function CellBadge({ value }: { value: string }) {
@@ -12,10 +17,10 @@ function CellBadge({ value }: { value: string }) {
 }
 
 const HIGHLIGHTS = [
-  { label: "EB-2 India", value: "01APR12", change: "+1 month", positive: true },
-  { label: "EB-3 India", value: "01JUN12", change: "+1 month", positive: true },
-  { label: "EB-2 China", value: "01JAN19", change: "+1 month", positive: true },
-  { label: "EB-1 All", value: "Current", change: "No change", positive: true },
+  { label: "EB-2 India", value: "01NOV13", change: "Final Action date", positive: true },
+  { label: "EB-3 India", value: "22JAN14", change: "Advanced from 01JAN14", positive: true },
+  { label: "EB-2 worldwide", value: "01APR25", change: "Final Action date", positive: true },
+  { label: "EB-3 worldwide", value: "15JUN24", change: "Final Action date", positive: true },
 ];
 
 export default function PublicVisaBulletinPage() {
@@ -34,12 +39,14 @@ export default function PublicVisaBulletinPage() {
                 Visa Bulletin
               </h1>
               <p className="text-muted-foreground text-lg max-w-xl">
-                Monthly priority date cutoffs for employment-based and family-based immigrant visa categories.
+                Employment-based final action dates from the Department of State {BULLETIN_MONTH} Visa Bulletin.
               </p>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline">
-                <Bell className="mr-2 h-4 w-4" /> Get Alerts
+              <Button variant="outline" asChild>
+                <Link href="/dashboard/reminders">
+                  <Bell className="mr-2 h-4 w-4" /> Email alerts
+                </Link>
               </Button>
               <Link href="/dashboard/tools/visa-bulletin">
                 <Button>
@@ -58,7 +65,7 @@ export default function PublicVisaBulletinPage() {
                 <p className="text-xs text-muted-foreground mb-1">{h.label}</p>
                 <p className="font-bold text-sm font-mono">{h.value}</p>
                 <div className={`flex items-center gap-1 mt-1 text-xs ${h.positive ? "text-green-600" : "text-red-600"}`}>
-                  <TrendingUp className="h-3 w-3" />
+                  {h.positive ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
                   {h.change}
                 </div>
               </CardContent>

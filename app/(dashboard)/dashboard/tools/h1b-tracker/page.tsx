@@ -4,52 +4,36 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Trophy, Clock, AlertCircle, CheckCircle2, Circle, TrendingUp, Users, FileText } from "lucide-react";
+import { Trophy, Clock, AlertCircle, CheckCircle2, Circle, Users, FileText } from "lucide-react";
 
 const lotteryHistory = [
-  { year: "FY2026 (2025)", registrations: 480000, selected: 114000, rate: 23.8, capExempt: false },
-  { year: "FY2025 (2024)", registrations: 470342, selected: 114017, rate: 24.2, capExempt: false },
-  { year: "FY2024 (2023)", registrations: 758994, selected: 110791, rate: 14.6, capExempt: false },
-  { year: "FY2023 (2022)", registrations: 483927, selected: 127600, rate: 26.4, capExempt: false },
-  { year: "FY2022 (2021)", registrations: 308613, selected: 131970, rate: 42.8, capExempt: false },
+  { year: "FY2025 (official USCIS report)", registrations: 470342, selected: 127624, rate: 27.1 },
 ];
 
 const timeline = [
   {
-    date: "Mar 1 – Mar 20, 2026",
-    label: "FY2027 Registration Window",
+    date: "FY2027 cycle",
+    label: "Registration and selection",
     status: "done",
-    description: "Employers submitted H-1B registrations on myUSCIS portal. $215 per registration.",
+    description: "The FY2027 cap cycle is complete. USCIS publishes the exact registration and selection dates for each cycle; the registration fee is currently $215 per beneficiary.",
   },
   {
-    date: "Late March 2026",
-    label: "Lottery Selection",
+    date: "FY2027 petition period",
+    label: "Selected employers file petitions",
     status: "done",
-    description: "USCIS ran the random lottery. Regular cap (65k) selected first, then master's cap (20k).",
-  },
-  {
-    date: "Apr 1, 2026",
-    label: "Selection Notifications",
-    status: "done",
-    description: "Selected registrants notified via myUSCIS. Status shows 'Selected' or 'Not Selected'.",
-  },
-  {
-    date: "Apr 1 – Jun 30, 2026",
-    label: "Petition Filing Window",
-    status: "done",
-    description: "Selected employers filed full I-129 petitions with all supporting documents.",
+    description: "Selected employers filed full Form I-129 petitions during the period shown in their USCIS selection notices.",
   },
   {
     date: "Oct 1, 2026",
     label: "H-1B Status Begins",
-    status: "upcoming",
-    description: "Approved H-1B employees can begin working on Oct 1 (start of fiscal year FY2027).",
+    status: "done",
+    description: "October 1, 2026 was the FY2027 fiscal-year start date for approved cap-subject H-1B cases with that requested start date.",
   },
   {
-    date: "Mar 2027",
-    label: "FY2028 Registration Opens",
+    date: "March 2027 (exact dates TBD)",
+    label: "FY2028 Registration Window",
     status: "upcoming",
-    description: "Next H-1B cap season begins. Process repeats.",
+    description: "USCIS has not published the exact FY2028 registration dates. Monitor the official H-1B page before relying on a deadline.",
   },
 ];
 
@@ -61,18 +45,18 @@ const capExemptEmployers = [
 ];
 
 const tips = [
-  { title: "Apply for Master's Cap if eligible", body: "US master's degree holders get two chances — they enter both the regular (65k) and master's cap (20k) lottery." },
+  { title: "Use the Master's Cap if eligible", body: "A qualifying U.S. master's degree makes a beneficiary eligible for the advanced-degree exemption as well as the regular cap; selection odds vary by cycle." },
   { title: "Consider cap-exempt employers", body: "Universities, nonprofits, and government labs are not subject to the cap. No lottery needed." },
   { title: "Explore O-1A as a backup", body: "Individuals with extraordinary ability can self-petition for O-1A without a cap." },
-  { title: "Start job search in October", body: "Register by March. Employers typically begin H-1B conversations 5–6 months before the registration window." },
-  { title: "Premium processing for faster decision", body: "Pay $2,805 for a 15 business day decision after filing the I-129 petition." },
+  { title: "Start employer conversations early", body: "Registration dates are announced annually. Employers typically begin H-1B conversations months before the registration window." },
+  { title: "Premium processing for faster action", body: "Pay $2,805 for qualifying USCIS action within 15 business days after filing an eligible I-129 petition." },
 ];
 
 export default function H1BTrackerPage() {
   const [activeTab, setActiveTab] = useState<"timeline" | "odds" | "tips" | "exempt">("timeline");
 
   const tabs = [
-    { id: "timeline", label: "2026 Timeline" },
+    { id: "timeline", label: "FY2027 / FY2028 Timeline" },
     { id: "odds", label: "Lottery Odds" },
     { id: "tips", label: "Strategy Tips" },
     { id: "exempt", label: "Cap-Exempt" },
@@ -88,15 +72,15 @@ export default function H1BTrackerPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold">H-1B Lottery Tracker</h1>
-            <p className="text-sm" style={{ color: "#64748b" }}>FY2027 cap season · Next registration opens March 2027</p>
+            <p className="text-sm" style={{ color: "#64748b" }}>FY2027 cycle complete · FY2028 dates not yet announced</p>
           </div>
         </div>
 
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
           {[
-            { label: "FY2026 Registrations", value: "480,000", icon: Users, color: "text-blue-600", bg: "#eff6ff" },
-            { label: "FY2026 Selection Rate", value: "23.8%", icon: TrendingUp, color: "text-green-600", bg: "#f0fdf4" },
+            { label: "FY2025 Registrations", value: "470,342", icon: Users, color: "text-blue-600", bg: "#eff6ff" },
+            { label: "FY2025 Selected Beneficiaries", value: "127,624", icon: CheckCircle2, color: "text-green-600", bg: "#f0fdf4" },
             { label: "Regular Cap", value: "65,000", icon: FileText, color: "text-purple-600", bg: "#faf5ff" },
             { label: "Master's Cap", value: "20,000", icon: Trophy, color: "text-orange-600", bg: "#fff7ed" },
           ].map((stat) => {
@@ -139,7 +123,7 @@ export default function H1BTrackerPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-2 p-3 rounded-lg" style={{ backgroundColor: "#eff6ff", border: "1px solid #bfdbfe" }}>
             <AlertCircle className="h-4 w-4 text-blue-600 shrink-0" />
-            <p className="text-sm text-blue-800">FY2027 registration window opens <strong>March 2027</strong>. The timeline below shows the completed FY2026 cycle.</p>
+            <p className="text-sm text-blue-800">The FY2027 cycle is complete. FY2028 registration is expected in March 2027, but USCIS has not published exact dates.</p>
           </div>
           {timeline.map((step, i) => (
             <div key={i} className="flex gap-4">
@@ -181,7 +165,7 @@ export default function H1BTrackerPage() {
         <div className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Historical Selection Rates</CardTitle>
+              <CardTitle className="text-base">Officially Published Selection Data</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -190,7 +174,7 @@ export default function H1BTrackerPage() {
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-sm font-medium">{y.year}</span>
                       <span className="text-sm font-bold" style={{ color: y.rate > 30 ? "#16a34a" : y.rate > 20 ? "#2563eb" : "#dc2626" }}>
-                        {y.rate}% selected
+                        {y.rate}% published ratio
                       </span>
                     </div>
                     <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: "#f1f5f9" }}>
@@ -212,7 +196,8 @@ export default function H1BTrackerPage() {
           </Card>
           <div className="p-4 rounded-xl" style={{ backgroundColor: "#fef9c3", border: "1px solid #fde047" }}>
             <p className="text-sm font-semibold text-yellow-800 mb-1">Key insight</p>
-            <p className="text-sm text-yellow-700">Holding a US master&apos;s degree effectively doubles your lottery entries. In FY2025, master&apos;s cap holders had a statistically higher chance of selection than regular cap applicants.</p>
+            <p className="text-sm text-yellow-700">The FY2025 figure is a ratio of USCIS&apos;s published selected-beneficiary count to registrations, not a guaranteed individual probability. Selection is beneficiary-centric, so duplicate registrations do not improve an individual&apos;s odds.</p>
+            <a href="https://www.uscis.gov/sites/default/files/document/reports/ola_signed_h1b_characteristics_congressional_report_FY24.pdf" target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-xs font-semibold text-yellow-900 underline">View the USCIS H-1B characteristics report ↗</a>
           </div>
         </div>
       )}

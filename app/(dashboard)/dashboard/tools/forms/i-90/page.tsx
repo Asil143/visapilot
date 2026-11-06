@@ -86,7 +86,7 @@ export default function I90Page() {
       color="teal"
       questions={I90_QUESTIONS}
       parts={I90_PARTS}
-      description="For lawful permanent residents who need to renew an expiring green card or replace one that's lost, stolen, damaged, or incorrect. Answer questions in plain English — we'll prepare your official form."
+      description="For lawful permanent residents who need to renew an expiring green card or replace one that's lost, stolen, damaged, or incorrect. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-90."
       subtext="Most green cards are valid for 10 years (2 years for conditional residents) — file for renewal as soon as it expires or is close to expiring."
       notices={[
         { tone: "amber", text: <>If your card was lost or stolen while you were outside the U.S., you may also need Form I-131A (Travel Document) to return home.</> },

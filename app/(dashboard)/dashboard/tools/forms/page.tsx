@@ -118,15 +118,15 @@ export default function FormsPage() {
   const coming = FORMS.filter(f => f.status === "coming-soon");
 
   return (
-    <div className="p-8 max-w-6xl">
+    <div className="p-4 md:p-8 max-w-6xl">
       <div className="mb-8 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
           <FileText className="h-5 w-5 text-blue-600" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">USCIS Form Guides</h1>
+          <h1 className="text-2xl font-bold">USCIS Form Worksheets</h1>
           <p className="text-muted-foreground text-sm mt-0.5">
-            Step-by-step guided interviews for the most common immigration forms
+            Guided interviews that produce a data sheet you copy onto the official USCIS PDF
           </p>
         </div>
       </div>
@@ -135,9 +135,9 @@ export default function FormsPage() {
       <div className="mb-8 rounded-xl border bg-blue-50/60 border-blue-100 p-5">
         <p className="text-sm font-semibold text-blue-800 mb-1">How it works</p>
         <p className="text-sm text-blue-700 leading-relaxed">
-          Select a form below. Our AI will guide you through every question in plain English, one step at a time.
-          At the end you get a complete data sheet — organized by Part and Item number exactly as USCIS requires —
-          that you use to fill the official form in Adobe Reader. Takes the confusion out of complex forms.
+          Select a form below. We walk you through every question in plain English, one step at a time.
+          You get a data sheet organized by Part and Item number — then you copy those answers onto the
+          official USCIS PDF. StatusClock does not file with USCIS or generate a completed official form.
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export default function FormsPage() {
               <p className="text-xs text-muted-foreground leading-relaxed mb-3">{form.description}</p>
               <p className="text-[10px] text-slate-400 font-medium">Who files: {form.who}</p>
               <div className="mt-3 text-xs font-semibold text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                Start guided interview →
+                Start worksheet →
               </div>
             </CardContent>
           </Card>

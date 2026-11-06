@@ -8,8 +8,6 @@ import {
   CheckCircle2, Clock, Eye, RefreshCw, ShieldAlert, StickyNote,
 } from "lucide-react";
 
-const ADMIN_EMAIL = "kamepalliasil143@gmail.com";
-
 type Status = "submitted" | "in_review" | "completed" | "delivered";
 
 const STATUS_CONFIG: Record<Status, { label: string; color: string }> = {
@@ -82,19 +80,22 @@ function downloadAllCSV(submissions: Submission[]) {
 }
 
 export default function AdminFormSubmissionsPage() {
-  const { user, isLoaded } = useUser();
+  const { isLoaded } = useUser();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [notes, setNotes] = useState<Record<string, string>>({});
-
-  const isAdmin = isLoaded && user?.emailAddresses[0]?.emailAddress === ADMIN_EMAIL;
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/form-submissions");
+      if (res.status === 403) {
+        setAccessDenied(true);
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         setSubmissions(data);
@@ -107,7 +108,7 @@ export default function AdminFormSubmissionsPage() {
     }
   }, []);
 
-  useEffect(() => { if (isAdmin) Promise.resolve().then(load); }, [isAdmin, load]);
+  useEffect(() => { if (isLoaded) Promise.resolve().then(load); }, [isLoaded, load]);
 
   async function updateStatus(id: string, status: Status) {
     setSavingId(id);
@@ -133,7 +134,7 @@ export default function AdminFormSubmissionsPage() {
 
   if (!isLoaded) return <div className="p-8"><Loader2 className="h-6 w-6 animate-spin" /></div>;
 
-  if (!isAdmin) {
+  if (accessDenied) {
     return (
       <div className="p-8 flex flex-col items-center justify-center min-h-96 gap-4">
         <ShieldAlert className="h-12 w-12 text-red-400" />

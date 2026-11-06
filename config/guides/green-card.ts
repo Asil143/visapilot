@@ -14,7 +14,7 @@ export const GREEN_CARD_EB_CATEGORIES: EBCategory[] = [
     title: "Extraordinary Ability",
     description: "For individuals with extraordinary ability in sciences, arts, education, business, or athletics. No employer sponsor required.",
     requirements: ["National or international awards/recognition", "Published work with significant citations", "Judging others' work in your field", "High salary compared to peers", "Memberships in prestigious associations"],
-    timeline: "12–24 months",
+    timeline: "Varies by category and bulletin",
     color: "bg-yellow-50 border-yellow-200 text-yellow-900",
     badge: "bg-yellow-100 text-yellow-700",
   },
@@ -23,7 +23,7 @@ export const GREEN_CARD_EB_CATEGORIES: EBCategory[] = [
     title: "Outstanding Researchers & Professors",
     description: "For researchers/professors with international recognition in a specific academic area. Requires employer sponsorship.",
     requirements: ["At least 3 years research/teaching experience", "Major prizes or awards", "Membership in associations requiring outstanding achievement", "Published material about your work", "Participation as judge of others' work"],
-    timeline: "12–18 months",
+    timeline: "Varies by category and bulletin",
     color: "bg-blue-50 border-blue-200 text-blue-900",
     badge: "bg-blue-100 text-blue-700",
   },
@@ -32,7 +32,7 @@ export const GREEN_CARD_EB_CATEGORIES: EBCategory[] = [
     title: "National Interest Waiver",
     description: "Waives the job offer and PERM requirements for individuals whose work is in the national interest of the US. Self-petition.",
     requirements: ["Substantial merit and national importance of work", "Well-positioned to advance the endeavor", "Beneficial to waive job offer and PERM requirements", "Strong evidence: papers, citations, media, letters of support"],
-    timeline: "12–30 months",
+    timeline: "Varies by category and bulletin",
     color: "bg-emerald-50 border-emerald-200 text-emerald-900",
     badge: "bg-emerald-100 text-emerald-700",
   },
@@ -57,7 +57,7 @@ export const GREEN_CARD_EB_CATEGORIES: EBCategory[] = [
 ];
 
 export const GREEN_CARD_PROCESS_STEPS: { title: string; desc: string }[] = [
-  { title: "PERM Labor Certification (EB-2/EB-3 only)", desc: "Employer proves no qualified US workers are available for the position. Takes 8–18 months." },
+  { title: "PERM Labor Certification (EB-2/EB-3 only)", desc: "Employer proves no qualified US workers are available for the position. Check current Department of Labor processing information because this timeline changes." },
   { title: "File I-140 (Immigrant Petition)", desc: "USCIS approves your immigrant classification. Establishes your Priority Date." },
   { title: "Wait for Priority Date to Become Current", desc: "Check monthly Visa Bulletin. India and China have multi-year backlogs for EB-2/EB-3." },
   { title: "Adjustment of Status (I-485) or Consular Processing", desc: "If in the US, file I-485. If abroad, go through National Visa Center and US Embassy." },

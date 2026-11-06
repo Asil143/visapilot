@@ -12,12 +12,12 @@ export const metadata = {
 
 export default function H1BGuidePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-br from-green-50 to-white py-16">
+    <div className="sc-guide-article min-h-screen bg-background">
+      <div className="sc-guide-hero"><div className="sc-guide-breadcrumb"><Link href="/guides">The guide library</Link><span>/</span><span>FIELD GUIDE 03</span></div>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">🏢</span>
+
               <Badge className="bg-green-100 text-green-700 border-green-200">H-1B Work Visa</Badge>
             </div>
             <h1 className="text-4xl font-bold tracking-tight">H-1B Specialty Occupation Visa</h1>
@@ -75,8 +75,8 @@ export default function H1BGuidePage() {
               <div className="space-y-2">
                 {[
                   { month: "Jan–Feb", event: "Employer and attorney prepare petition documents", color: "bg-blue-100 text-blue-800" },
-                  { month: "Mar 1–18", event: "USCIS opens cap registration window", color: "bg-yellow-100 text-yellow-800" },
-                  { month: "Late Mar", event: "USCIS runs lottery; notifies selected registrants", color: "bg-orange-100 text-orange-800" },
+                  { month: "March (dates vary)", event: "USCIS announces the cap registration window", color: "bg-yellow-100 text-yellow-800" },
+                  { month: "After registration closes", event: "USCIS selects and notifies registrants", color: "bg-orange-100 text-orange-800" },
                   { month: "Apr 1", event: "Filing window opens for selected registrants", color: "bg-green-100 text-green-800" },
                   { month: "Apr–Sep", event: "USCIS adjudicates petitions", color: "bg-purple-100 text-purple-800" },
                   { month: "Oct 1", event: "H-1B employment begins (new fiscal year)", color: "bg-primary/10 text-primary" },

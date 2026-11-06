@@ -7,7 +7,7 @@ export const tn: ChecklistDef = {
   emoji: "🍁",
   cardColor: "from-red-500 to-rose-600",
   keyFacts: [
-    { label: "CBP Fee", value: "$56", sub: "Canadians at border", icon: "DollarSign", color: "text-red-600" },
+    { label: "Land-border I-94", value: "$30", sub: "current CBP fee", icon: "DollarSign", color: "text-red-600" },
     { label: "MRV Fee", value: "$185", sub: "Mexicans at embassy", icon: "DollarSign", color: "text-orange-600" },
     { label: "No Cap", value: "✓", sub: "no lottery, no quota", icon: "CheckCircle", color: "text-green-600" },
     { label: "Duration", value: "3 years", sub: "renewable indefinitely", icon: "Clock", color: "text-blue-600" },
@@ -50,7 +50,7 @@ export const tn: ChecklistDef = {
         { id: "tc1", text: "Arrive at US land border crossing or preclearance airport (Canada)", type: "action" },
         { id: "tc2", text: "Bring all required documents to CBP officer (see documents phase below)", type: "action" },
         { id: "tc3", text: "CBP adjudicates on the spot — usually takes 30–60 minutes", type: "action" },
-        { id: "tc4", text: "Pay $56 fee to CBP at the border (if Form I-94 is issued)", type: "fee" },
+        { id: "tc4", text: "Pay the current CBP land-border I-94 fee: $30 if Form I-94 is issued; confirm any additional port-of-entry fees", type: "fee" },
         { id: "tc5", text: "If approved: receive I-94 with TN status, valid up to 3 years", type: "doc" },
         { id: "tc6", text: "Print your I-94 record at i94.cbp.dhs.gov after entry", type: "doc", link: { label: "Print I-94", url: "https://i94.cbp.dhs.gov" } },
       ],
@@ -90,7 +90,7 @@ export const tn: ChecklistDef = {
       items: [
         { id: "tr1", text: "Option 1: Travel to Canada and re-enter with new employer letter (Canadians)", type: "action" },
         { id: "tr2", text: "Option 2: File Form I-129 (Change of Status/Extension) with USCIS — stay in US while processing", type: "form" },
-        { id: "tr3", text: "I-129 extension fee: $730 base + $500 fraud prevention fee", type: "fee" },
+        { id: "tr3", text: "If filing Form I-129 with USCIS: $1,015 for a regular employer or $510 for a small employer/nonprofit, plus applicable fees", type: "fee" },
         { id: "tr4", text: "TN status can be renewed indefinitely — there is no 6-year cap like H-1B", type: "action" },
         { id: "tr5", text: "Note: TN is non-immigrant intent — having an approved I-140 or pending green card application may cause issues at re-entry", note: "Consult an attorney if you are pursuing a green card while on TN", type: "action" },
       ],

@@ -1,8 +1,8 @@
-# VisaPilot
+# StatusClock
 
-**AI-powered immigration guidance for international students and professionals navigating the US visa system.**
+**Immigration checklists, deadline tracking, and AI guidance for international students and professionals.**
 
-VisaPilot provides step-by-step checklists, deadline tracking, an AI assistant, and attorney referrals for F-1, OPT, H-1B, green card, and other US immigration paths. Built as a full-stack Next.js application with Supabase, Clerk, and the Claude API.
+StatusClock provides step-by-step checklists, deadline tracking, an AI assistant, and attorney inquiry referrals for F-1, OPT, H-1B, green card, and other US immigration paths. Built as a full-stack Next.js application with Supabase, Clerk, and the Claude API.
 
 ---
 
@@ -11,6 +11,7 @@ VisaPilot provides step-by-step checklists, deadline tracking, an AI assistant, 
 ### For users
 - **AI Assistant** — Ask immigration questions 24/7, powered by Claude (Anthropic)
 - **Visa Checklists** — Step-by-step checklists for F-1, OPT, STEM OPT, H-1B, green card, and more
+- **Visa Path Finder** — A guided questionnaire that turns your goal and current situation into a research map
 - **OPT Day Counter** — Track the 90-day unemployment limit in real time
 - **Visa Bulletin Tracker** — Priority date wait-time calculator with movement speed estimates from USCIS history
 - **Form Guides** — AI-guided interviews for USCIS forms
@@ -188,7 +189,7 @@ npm run lint    # ESLint
 
 ## Payments
 
-VisaPilot uses a **manual payment flow** — no Stripe checkout required:
+StatusClock uses a **manual payment flow** — no Stripe checkout required:
 
 1. User selects a plan on `/pricing` or `/settings`
 2. A modal shows payment handles (Cash App `$AsilKamepalli`, PayPal, Venmo, Chime, Zelle)
@@ -222,7 +223,7 @@ Configured in `vercel.json`. It sends deadline reminder emails to users with upc
 
 ## Disclaimer
 
-VisaPilot provides general immigration information only. It is **not a law firm** and does not provide legal advice. Always consult a licensed immigration attorney for your specific situation.
+StatusClock provides general immigration information only. It is **not a law firm** and does not provide legal advice. Always consult a licensed immigration attorney for your specific situation.
 
 ---
 

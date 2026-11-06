@@ -7,7 +7,7 @@ export const o1: ChecklistDef = {
   emoji: "⭐",
   cardColor: "from-yellow-500 to-amber-600",
   keyFacts: [
-    { label: "I-129 Fee", value: "~$1,230", sub: "+ premium optional", icon: "DollarSign", color: "text-red-600" },
+    { label: "I-129 Fee", value: "$1,055+", sub: "regular employer; premium optional", icon: "DollarSign", color: "text-red-600" },
     { label: "Initial Period", value: "3 years", sub: "1-year extensions after", icon: "Clock", color: "text-blue-600" },
     { label: "No Cap", value: "✓", sub: "no lottery, no quota", icon: "CheckCircle", color: "text-green-600" },
     { label: "Attorney", value: "Strongly recommended", sub: "complex evidence required", icon: "Scale", color: "text-purple-600" },
@@ -67,10 +67,10 @@ export const o1: ChecklistDef = {
       icon: "Send", colorText: "text-teal-700", colorBg: "bg-teal-50", colorBorder: "border-teal-200",
       items: [
         { id: "o1p1", text: "Employer or agent files Form I-129 with O Classification Supplement", type: "form" },
-        { id: "o1p2", text: "Pay I-129 base filing fee: $730", type: "fee" },
+        { id: "o1p2", text: "Pay I-129 fee: $1,055 for a regular employer or $530 for a small employer/nonprofit, plus applicable fees", type: "fee" },
         { id: "o1p3", text: "Optional: Pay $2,805 Premium Processing (15 business days)", type: "fee" },
         { id: "o1p4", text: "Include all evidence, advisory opinion, expert letters, and itinerary", type: "doc" },
-        { id: "o1p5", text: "Standard processing: 2–4 months", type: "action" },
+        { id: "o1p5", text: "Check USCIS live processing times for the current estimate", type: "action" },
         { id: "o1p6", text: "Receive I-797 approval — initial O-1 approved for up to 3 years", type: "doc" },
       ],
     },

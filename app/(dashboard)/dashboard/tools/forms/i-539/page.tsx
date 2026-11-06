@@ -121,7 +121,7 @@ export default function I539Page() {
       color="amber"
       questions={I539_QUESTIONS}
       parts={I539_PARTS}
-      description="For nonimmigrants already in the U.S. who want to extend their current status or change to a different nonimmigrant category — without leaving the country. Answer questions in plain English — we'll fill the official form and send it to you."
+      description="For nonimmigrants already in the U.S. who want to extend their current status or change to a different nonimmigrant category — without leaving the country. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form I-539."
       subtext="Covers extensions of stay (e.g., B-2 tourist extension) and changes of status (e.g., F-1 to B-2, H-4 to F-1)."
       notices={[
         { tone: "amber", text: <>⏱ File this <strong>before your current authorized stay (I-94 date) expires</strong> — filing late can create a gap in status and affect future immigration benefits.</> },

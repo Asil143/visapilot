@@ -128,7 +128,7 @@ export default function I864Page() {
       color="blue"
       questions={I864_QUESTIONS}
       parts={I864_PARTS}
-      description="Answer questions in plain English. Watch the official form fill in real time on the right. Download a completed PDF when done."
+      description="Answer questions in plain English to build a worksheet mapped to Form I-864. Copy your answers onto the official USCIS PDF — StatusClock does not file for you."
       subtext="Covers Parts 1–6 and Part 8 of the official USCIS Form I-864 (Edition 10/17/24)."
       normalize={normalize}
       prefill={prefill}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,14 +11,16 @@ const ARTICLES: Record<string, {
   author: string; body: string; relatedSlugs: string[];
 }> = {
   "h1b-2026-lottery-results": {
-    title: "H-1B 2026 Lottery Results: USCIS Selects 85,000 Registrations",
+    title: "H-1B FY2026 Lottery Results (Historical Snapshot)",
     category: "H-1B",
-    badge: "Breaking",
+    badge: "Archive",
     date: "May 27, 2026",
     readTime: "4 min read",
     author: "StatusClock Editorial",
     relatedSlugs: ["rfe-rates-specialty-occupation-2026", "uscis-processing-times-may-2026"],
-    body: `USCIS has completed the H-1B random selection process for fiscal year 2026 (FY2026), selecting approximately 85,000 registrations to meet the statutory cap — 65,000 under the regular cap and 20,000 under the advanced degree exemption.
+    body: `This is a historical FY2026 snapshot. For current registration dates, selection data, and beneficiary-centric rules, use the live H-1B tracker and official USCIS notices.
+
+USCIS completed the H-1B random selection process for fiscal year 2026 (FY2026), selecting approximately 85,000 registrations to meet the statutory cap — 65,000 under the regular cap and 20,000 under the advanced degree exemption.
 
 **Selection Statistics**
 
@@ -52,14 +55,16 @@ Employers who did not get selected should consider alternatives such as:
 - Cap-exempt H-1B employment (through qualifying nonprofits, universities, or government research organizations)`,
   },
   "uscis-processing-times-may-2026": {
-    title: "USCIS Processing Times Drop for I-765: OPT Now 3–5 Months at Potomac SC",
+    title: "USCIS I-765 Processing Times — May 2026 Snapshot",
     category: "Processing Times",
-    badge: "Update",
+    badge: "Archive",
     date: "May 22, 2026",
     readTime: "3 min read",
     author: "StatusClock Editorial",
     relatedSlugs: ["h1b-2026-lottery-results", "stem-opt-extension-new-rules"],
-    body: `USCIS has updated its published processing times for May 2026, with the most significant change being a reduction in I-765 (Employment Authorization Document) processing times at the Potomac Service Center.
+    body: `This is a May 2026 historical snapshot. USCIS processing estimates change; use the live USCIS processing-time tool for a current estimate.
+
+USCIS updated its published processing times for May 2026, with the most significant change being a reduction in I-765 (Employment Authorization Document) processing times at the Potomac Service Center.
 
 **Key Changes**
 
@@ -76,7 +81,7 @@ USCIS publishes processing times at uscis.gov/tools/processing-times. Applicants
 If your application has been pending longer than the published processing time, you may submit an e-request (case inquiry) through the USCIS website. USCIS will typically respond within 30 days. If no response, applicants may contact the USCIS Contact Center at 1-800-375-5283.`,
   },
   "eb2-india-priority-date-movement": {
-    title: "EB-2 India Priority Dates Advance 8 Months in June 2026 Visa Bulletin",
+    title: "EB-2 India Priority Dates — June 2026 Snapshot",
     category: "Green Card",
     badge: "Visa Bulletin",
     date: "May 15, 2026",
@@ -105,7 +110,7 @@ If your priority date is now current:
 - Contact your employer's immigration attorney immediately
 - Gather supporting documents (birth certificate, passport, medical exam results)
 - Prepare Form I-485, I-131 (Advance Parole), and I-765 (EAD) concurrently
-- Budget for filing fees: I-485 ($1,440) + biometrics ($85)
+- Budget for the current I-485 filing fee ($1,440); there is no separate biometric fee under the current USCIS fee schedule
 
 **Retrogression Risk**
 
@@ -227,26 +232,16 @@ The N-400 filing fee is $760 (plus $85 biometrics for applicants aged 14–78). 
   },
 };
 
-const FALLBACK = {
-  title: "Article Not Found",
-  category: "News",
-  badge: "Info",
-  date: "2026",
-  readTime: "1 min read",
-  author: "StatusClock Editorial",
-  relatedSlugs: [],
-  body: "This article could not be found. Please browse our blog for the latest immigration news.",
-};
-
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = ARTICLES[slug] ?? FALLBACK;
+  const article = ARTICLES[slug];
+  if (!article) notFound();
 
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Link href="/blog" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
-          <ArrowLeft className="h-4 w-4" /> Back to Blog
+          <ArrowLeft className="h-4 w-4" /> Back to Explainers
         </Link>
 
         {/* Article header */}
@@ -263,9 +258,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
 
-        {/* Hero image placeholder */}
-        <div className="h-56 bg-gradient-to-br from-primary/20 to-blue-100 rounded-2xl mb-8 flex items-center justify-center">
-          <div className="text-6xl opacity-20">📰</div>
+        <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 leading-relaxed">
+          This is an explainer, not live news. Figures may be outdated. Confirm current dates on{" "}
+          <Link href="/visa-bulletin" className="font-semibold underline">Visa Bulletin</Link>
+          {" "}and{" "}
+          <a href="https://www.uscis.gov" target="_blank" rel="noopener noreferrer" className="font-semibold underline">USCIS.gov</a>.
         </div>
 
         {/* Article body */}

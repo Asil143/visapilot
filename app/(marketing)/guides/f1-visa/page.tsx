@@ -15,13 +15,13 @@ export default function F1GuidePage() {
   const guide = F1_GUIDE;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="sc-guide-article min-h-screen bg-background">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-blue-50 to-white py-16">
+      <div className="sc-guide-hero"><div className="sc-guide-breadcrumb"><Link href="/guides">The guide library</Link><span>/</span><span>FIELD GUIDE 01</span></div>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">🎓</span>
+
               <Badge variant="info">F-1 Student Visa</Badge>
             </div>
             <h1 className="text-4xl font-bold tracking-tight">{guide.title}</h1>
@@ -129,7 +129,7 @@ export default function F1GuidePage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Processing</span>
-                    <span className="font-medium">2–8 weeks</span>
+                    <span className="font-medium">Varies by post</span>
                   </div>
                 </div>
               </CardContent>

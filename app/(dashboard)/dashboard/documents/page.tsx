@@ -197,7 +197,7 @@ export default function DocumentsPage() {
       {/* Security note */}
       <div className="flex items-center gap-2 p-3 rounded-xl bg-green-50 border border-green-200 mb-6">
         <Shield className="h-4 w-4 text-green-600 shrink-0" />
-        <p className="text-xs text-green-700">All documents are encrypted at rest and in transit. Only you can access them.</p>
+        <p className="text-xs text-green-700">Documents are stored in your private vault and are only accessible when you are signed in. StatusClock is not a law firm.</p>
       </div>
 
       {/* Upload modal */}

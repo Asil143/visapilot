@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Bot } from "lucide-react";
 
 const GREETINGS = [
@@ -12,9 +12,10 @@ const GREETINGS = [
 ];
 
 const STORAGE_KEY = "statusclock_greeted";
-const STEP_MS = 850;
+const STEP_MS = 550;
 
 export function GreetingSplash() {
+  const reduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [idx, setIdx] = useState(0);
@@ -24,10 +25,10 @@ export function GreetingSplash() {
     const alreadyGreeted = sessionStorage.getItem(STORAGE_KEY);
     if (!alreadyGreeted) sessionStorage.setItem(STORAGE_KEY, "1");
     Promise.resolve().then(() => {
-      if (!alreadyGreeted) setVisible(true);
+      if (!alreadyGreeted && !reduceMotion) setVisible(true);
       setMounted(true);
     });
-  }, []);
+  }, [reduceMotion]);
 
   useEffect(() => {
     if (!visible || closing) return;
@@ -41,7 +42,7 @@ export function GreetingSplash() {
 
   useEffect(() => {
     if (!closing) return;
-    const t = setTimeout(() => setVisible(false), 900);
+    const t = setTimeout(() => setVisible(false), 700);
     return () => clearTimeout(t);
   }, [closing]);
 
@@ -55,15 +56,21 @@ export function GreetingSplash() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] overflow-hidden bg-[#05060f] cursor-pointer select-none"
+      className="fixed inset-0 z-[100] cursor-pointer select-none overflow-hidden bg-[#05060f]"
       initial={{ clipPath: "circle(150% at 50% 50%)" }}
       animate={{ clipPath: closing ? "circle(0% at 50% 50%)" : "circle(150% at 50% 50%)" }}
-      transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
       onClick={skip}
-      role="button"
-      aria-label="Skip greeting"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
+          e.preventDefault();
+          skip();
+        }
+      }}
+      role="dialog"
+      aria-label="Welcome to StatusClock. Press Enter to skip."
+      tabIndex={0}
     >
-      {/* Color-shifting gradient wash */}
       <AnimatePresence>
         <motion.div
           key={idx}
@@ -74,80 +81,40 @@ export function GreetingSplash() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
+          transition={{ duration: 0.45 }}
         />
       </AnimatePresence>
 
-      {/* Floating blurred orbs for depth */}
-      <motion.div
-        className="absolute h-72 w-72 rounded-full blur-3xl opacity-40"
-        style={{ background: g.to, top: "10%", left: "8%" }}
-        animate={{ x: [0, 40, -20, 0], y: [0, 30, -10, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute h-96 w-96 rounded-full blur-3xl opacity-30"
-        style={{ background: g.from, bottom: "5%", right: "10%" }}
-        animate={{ x: [0, -30, 20, 0], y: [0, -20, 15, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Fine grain texture for a premium, non-flat feel */}
-      <div
-        className="absolute inset-0 opacity-[0.04] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
       <div className="relative flex h-full flex-col items-center justify-center px-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={idx}
-            className="flex flex-col items-center"
-            initial={{ opacity: 0, scale: 0.82, filter: "blur(14px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 1.12, filter: "blur(14px)" }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span
-              className="text-[clamp(3.5rem,12vw,8rem)] font-black tracking-tight leading-none drop-shadow-[0_0_40px_rgba(255,255,255,0.25)]"
-              style={{
-                backgroundImage: `linear-gradient(135deg, #ffffff, ${g.to})`,
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              {g.text}
-            </span>
-            <motion.span
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-              className="mt-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-white/60"
-            >
-              {g.lang}
-            </motion.span>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Brand mark — settles in as the sequence wraps up */}
-        <motion.div
-          className="mt-14 flex items-center gap-2"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: idx === GREETINGS.length - 1 ? 1 : 0, y: idx === GREETINGS.length - 1 ? 0 : 10 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="mb-10 flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-[#1d4ed8]">
             <Bot className="h-4 w-4" />
           </div>
           <span className="text-sm font-bold tracking-wide text-white/90">StatusClock</span>
-        </motion.div>
+        </div>
 
-        {/* Progress indicator */}
-        <div className="mt-8 flex items-center gap-1.5">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={idx}
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span
+              className="text-[clamp(3rem,10vw,6.5rem)] font-black leading-none tracking-tight text-white"
+              style={{ fontFamily: "system-ui, 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Telugu', sans-serif" }}
+            >
+              {g.text}
+            </span>
+            <span className="mt-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/70 sm:text-sm">
+              {g.lang}
+            </span>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="mt-8 flex items-center gap-1.5" aria-hidden="true">
           {GREETINGS.map((item, i) => (
             <span
               key={item.lang}
@@ -158,8 +125,8 @@ export function GreetingSplash() {
           ))}
         </div>
 
-        <p className="absolute bottom-8 text-[11px] uppercase tracking-[0.25em] text-white/40">
-          Tap anywhere to skip
+        <p className="absolute bottom-8 text-[11px] uppercase tracking-[0.25em] text-white/70">
+          Press Enter or tap to skip
         </p>
       </div>
     </motion.div>

@@ -108,7 +108,7 @@ export default function CommunityPage() {
   }
 
   return (
-    <div className="p-8 max-w-6xl">
+    <div className="p-4 md:p-8 max-w-6xl">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
@@ -139,10 +139,12 @@ export default function CommunityPage() {
             ))}
           </div>
 
-          <div className="mt-6 rounded-lg bg-gradient-to-br from-purple-600 to-primary p-4 text-white">
-            <p className="font-semibold text-sm">⚖️ Live AMA</p>
-            <p className="text-xs mt-1 text-white/80">Attorney AMA: H-1B layoffs &amp; grace period</p>
-            <Button variant="secondary" size="sm" className="mt-3 w-full text-xs h-7">Join Now</Button>
+          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+            <p className="font-semibold text-sm text-slate-800">Attorney AMAs</p>
+            <p className="text-xs mt-1 text-slate-500 leading-relaxed">Live attorney sessions are not scheduled yet. Join the waitlist and we&apos;ll email you when the first one is booked.</p>
+            <Button asChild variant="outline" size="sm" className="mt-3 w-full text-xs h-7">
+              <Link href="/events">Get notified</Link>
+            </Button>
           </div>
         </div>
 

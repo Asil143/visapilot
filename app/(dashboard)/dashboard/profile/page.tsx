@@ -327,7 +327,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="p-8 max-w-5xl">
+    <div className="sc-profile sc-legacy-page p-8 max-w-5xl">
       {/* Header */}
       <div className="mb-8 flex items-start justify-between">
         <div>
@@ -351,7 +351,7 @@ export default function ProfilePage() {
         {/* Left: Form */}
         <div className="lg:col-span-2">
           {/* Tabs */}
-          <div className="flex gap-1 p-1 rounded-xl mb-6" style={{ backgroundColor: "#f1f5f9" }}>
+          <div className="sc-profile-tabs flex gap-1 p-1 rounded-xl mb-6" style={{ backgroundColor: "#f1f5f9" }}>
             {tabs.map(tab => {
               const Icon = tab.icon;
               return (

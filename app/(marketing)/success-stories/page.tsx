@@ -39,7 +39,7 @@ export default function SuccessStoriesPage() {
       if (!res.ok) throw new Error();
       setDone(true);
     } catch {
-      setError("Something went wrong. Please email kamepalliasil143@gmail.com directly.");
+      setError("Something went wrong. Please email support@statusclock.com directly.");
     } finally {
       setLoading(false);
     }

@@ -120,7 +120,7 @@ export default function N400Page() {
       color="orange"
       questions={N400_QUESTIONS}
       parts={N400_PARTS}
-      description="For lawful permanent residents applying to become U.S. citizens. Answer questions in plain English — we'll prepare your official form."
+      description="For lawful permanent residents applying to become U.S. citizens. Answer questions in plain English to build a worksheet you can copy onto the official USCIS Form N-400."
       subtext="Covers the core eligibility, biographic, address, family, and good-moral-character sections of the official USCIS Form N-400 — the most commonly needed parts. Any 'yes' answer on the eligibility questions should be reviewed with an immigration attorney before filing, since it can affect your case."
       notices={[
         { tone: "blue", text: <>General eligibility: at least 5 years as a permanent resident (3 years if married to and living with a U.S. citizen), continuous residence and physical presence in the U.S., and passing English and civics tests — unless you qualify for an age/residence-based exemption or a disability waiver.</> },

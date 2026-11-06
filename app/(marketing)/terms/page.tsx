@@ -20,7 +20,7 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 py-14 max-w-3xl">
           <p className="text-sm font-medium text-blue-600 mb-2">Legal</p>
           <h1 className="text-4xl font-bold text-slate-900 mb-3">Terms of Service</h1>
-          <p className="text-slate-500 text-sm">Last updated: May 31, 2026 &nbsp;·&nbsp; Effective: May 31, 2026</p>
+          <p className="text-slate-500 text-sm">Last updated: October 13, 2026 &nbsp;·&nbsp; Effective: October 13, 2026</p>
         </div>
       </div>
 
@@ -157,9 +157,10 @@ export default function TermsPage() {
 
           <h3 className="font-semibold text-slate-800 mt-4">7.2 Billing</h3>
           <p>
-            All fees are in U.S. dollars. By purchasing a plan, you authorize us to charge your
-            payment method at the applicable rate on the billing cycle you selected. Payments are
-            processed by Stripe, Inc.
+            All fees are in U.S. dollars. StatusClock currently collects payment person-to-person
+            (Cash App, PayPal, Venmo, Zelle, or Chime). After you send payment, upload a screenshot
+            so we can confirm it and activate access — typically within one business day. We do not
+            currently process card payments through Stripe or another card processor.
           </p>
 
           <h3 className="font-semibold text-slate-800 mt-4">7.3 Refund Policy</h3>
